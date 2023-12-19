@@ -1,0 +1,192 @@
+    ///////////////////////
+    //
+    // {{{name.lowercase}}}
+    //
+    ///////////////////////
+
+    // hint:3A7F9B2E
+    val {{{name.escaped}}}: {{{typeOpt}}}
+{{#requiredAndNoDefault}}
+        get() = {{name.underscore}}.getOrError()
+{{/requiredAndNoDefault}}
+{{^requiredAndNoDefault}}
+        get() = {{name.underscore}}.orNull{{#field.default}} ?: {{field.default}}{{/field.default}}
+{{/requiredAndNoDefault}}
+
+    // hint:F0C48D71
+    fun set{{name.uppercase}}Field({{{name.escaped}}}: Field<{{{typeOpt}}}>): {{entityName}} {
+        return copy({{name.underscore}} = {{{name.escaped}}})
+    }
+
+    // hint:8E56A4D9
+    fun update{{name.uppercase}}Field(updater: (Field<{{{typeOpt}}}>) -> Field<{{{typeOpt}}}>): {{entityName}} {
+        return set{{name.uppercase}}Field(updater({{name.underscore}}))
+    }
+
+    // hint:B1D730FC
+    fun update{{name.uppercase}}(updater: ({{{typeOpt}}}) -> {{{typeOpt}}}): {{entityName}} {
+        return update{{name.uppercase}}Field { field ->
+            field.flatMap { value ->
+                Field(updater(value))
+            }
+        }
+    }
+
+    // hint:6542E98A
+    fun merge{{name.uppercase}}Field({{name.lowercase}}FieldToMerge: Field<{{{typeOpt}}}>): {{entityName}} {
+        return merge{{name.uppercase}}({{name.lowercase}}FieldToMerge.orNull)
+    }
+
+    // hint:A8BC6F23
+    fun merge{{name.uppercase}}({{name.lowercase}}ToMerge: {{{type}}}?): {{entityName}} {
+        return if ({{name.lowercase}}ToMerge == null) {
+            this
+        } else {
+            val old{{name.uppercase}} = {{name.underscore}}.orNull
+            if (old{{name.uppercase}} == null) {
+                set{{name.uppercase}}Field(Field({{name.lowercase}}ToMerge))
+            } else {
+{{#listField}}
+                // hint:19DE5C87
+                set{{name.uppercase}}((old{{name.uppercase}} + {{name.lowercase}}ToMerge).distinct())
+{{/listField}}
+{{#setField}}
+                // hint:C2F147E9
+                set{{name.uppercase}}(old{{name.uppercase}} + {{name.lowercase}}ToMerge)
+{{/setField}}
+{{#mapField}}
+                // hint:70A3D8B6
+                set{{name.uppercase}}(de.lancom.openapi.tools.mergeMap(old{{name.uppercase}}, {{name.lowercase}}ToMerge))
+{{/mapField}}
+{{#entityField}}
+                // hint:E91B4F65
+                set{{name.uppercase}}(old{{name.uppercase}}.mergeEntity({{name.lowercase}}ToMerge))
+{{/entityField}}
+{{#otherField}}
+                // hint:2F684DAC
+                set{{name.uppercase}}({{name.lowercase}}ToMerge)
+{{/otherField}}
+            }
+        }
+    }
+
+    // hint:87B3E19C
+    fun set{{name.uppercase}}({{{name.escaped}}}: {{{typeOpt}}}): {{entityName}} {
+        return set{{name.uppercase}}Field(Field({{{name.escaped}}}))
+    }
+
+    // hint:D465F782
+    fun unset{{name.uppercase}}(): {{entityName}} {
+        return set{{name.uppercase}}Field(Field.unset())
+    }
+{{#collectionType}}
+    {{#referenceable}}
+
+    // hint:85F37E6D
+    @JvmName("add{{name.uppercase}}{{collectionType}}")
+    fun add{{name.uppercase}}({{{name.escaped}}}: {{collectionType}}<{{{itemType.type}}}>): {{entityName}} {
+        return add{{name.uppercase}}({{{name.escaped}}}.map(::Instance).to{{collectionType}}())
+    }
+
+    // hint:47D2AFC8
+    fun add{{name.uppercase}}(vararg {{{name.escaped}}}: {{{itemType.type}}}): {{entityName}} {
+        return add{{name.uppercase}}({{{name.escaped}}}.to{{collectionType}}())
+    }
+
+    // hint:12B6C4A3
+    @JvmName("add{{name.uppercase}}Array")
+    fun add{{name.uppercase}}({{{name.escaped}}}: Array<out {{{itemType.type}}}>): {{entityName}} {
+        return add{{name.uppercase}}({{{name.escaped}}}.to{{collectionType}}())
+    }
+    {{/referenceable}}
+
+    // hint:3E9A8C01
+    fun add{{name.uppercase}}({{{name.escaped}}}: {{{typeOpt}}}): {{entityName}} {
+        return set{{name.uppercase}}((this.{{{name.escaped}}} ?: empty{{collectionType}}()) + ({{{name.escaped}}} ?: empty{{collectionType}}()))
+    }
+
+    // hint:F7420EB5
+    fun add{{name.uppercase}}(vararg {{{name.escaped}}}: {{{field.type.itemType.type}}}): {{entityName}} {
+        return add{{name.uppercase}}({{{name.escaped}}}.to{{collectionType}}())
+    }
+{{/collectionType}}
+{{#mapField}}
+
+    // hint:5C81D396
+    fun add{{name.uppercase}}({{{name.escaped}}}: {{{typeOpt}}}): {{entityName}} {
+        return merge{{name.uppercase}}({{{name.escaped}}})
+    }
+
+    // hint:1A6B37F8
+    fun add{{name.uppercase}}(vararg {{{name.escaped}}}: Pair<{{{field.type.key.typeOpt}}}, {{{field.type.value.typeOpt}}}>): {{entityName}} {
+        return add{{name.uppercase}}({{{name.escaped}}}.toMap())
+    }
+
+    // hint:9D0E4CA5
+    fun add{{name.singular.uppercase}}(key: {{{field.type.key.typeOpt}}}, value: {{{field.type.value.typeOpt}}}): {{entityName}} {
+        return add{{name.uppercase}}(key to value)
+    }
+
+    // hint:B8F25E73
+    fun add{{name.singular.uppercase}}(pair: Pair<{{{field.type.key.typeOpt}}}, {{{field.type.value.typeOpt}}}>): {{entityName}} {
+        return add{{name.uppercase}}(mapOf(pair))
+    }
+{{#referenceable}}
+
+    // hint: 4F7A83E9
+    fun add{{name.singular.uppercase}}(key: {{{field.type.key.typeOpt}}}, value: {{{itemType.type}}}): {{entityName}} {
+        return add{{name.uppercase}}(key to Instance(value))
+    }
+{{/referenceable}}
+{{/mapField}}
+{{#otherOrEntityField}}
+{{#referenceable}}
+
+    // hint:F8E61D9B
+    fun add{{name.uppercase}}({{{name.escaped}}}: {{{itemType.type}}}): {{entityName}} {
+        return add{{name.uppercase}}(Instance({{{name.escaped}}}))
+    }
+{{/referenceable}}
+
+    // hint:47C9A0F6
+    fun add{{name.uppercase}}({{{name.escaped}}}: {{{type}}}{{{invertedDefault}}}): {{entityName}} {
+{{^addOnlyToNull}}
+        if (this.{{{name.escaped}}} != null) {
+            throw IllegalStateException("Field {{name.lowercase}} of Entity {{entityName}} is already set to '${this.{{{name.escaped}}}{{closebrace}}', refused to add new value '${{{name.escaped}}}'")
+        }
+{{/addOnlyToNull}}
+        return set{{name.uppercase}}({{{name.escaped}}})
+    }
+{{/otherOrEntityField}}
+{{#enumValues}}
+
+    // hint:E3AF607D
+    fun set{{name.uppercase}}{{uppercase}}(): {{entityName}} {
+        return set{{name.uppercase}}({{{field.type.enum}}}.{{{escaped}}})
+    }
+
+    // hint:3D98E6A5
+    fun add{{name.uppercase}}{{uppercase}}(): {{entityName}} {
+        return add{{name.uppercase}}({{{field.type.enum}}}.{{{escaped}}})
+    }
+{{/enumValues}}
+{{#optionValues}}
+
+    // hint:F1547C23
+    fun set{{name.uppercase}}{{uppercase}}(): {{entityName}} {
+        return set{{name.uppercase}}("{{{escaped}}}")
+    }
+
+    // hint:8B64D9F0
+    fun add{{name.uppercase}}{{uppercase}}(): {{entityName}} {
+        return add{{name.uppercase}}("{{{escaped}}}")
+    }
+{{/optionValues}}
+{{#regex}}
+
+    // hint:4D98C1B6
+    @get:com.fasterxml.jackson.annotation.JsonIgnore
+    val {{name.lowercase}}Regex: Regex? by lazy {
+        {{{name.escaped}}}?.toRegex()
+    }
+{{/regex}}

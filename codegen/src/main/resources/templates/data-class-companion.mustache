@@ -1,0 +1,38 @@
+
+    companion object : {{#hasJsonNode}}JsonEntityFactory<{{baseTypeOrEntityName}}>{{/hasJsonNode}}{{^hasJsonNode}}{{#entityType.referenceable}}Reference{{/entityType.referenceable}}Parser<{{baseTypeOrEntityName}}>{{/hasJsonNode}} {
+
+        class Serializer : EntitySerializer<{{baseTypeOrEntityName}}>({{baseTypeOrEntityName}}::class.java, {{entityName}})
+        class Deserializer : EntityDeserializer<{{baseTypeOrEntityName}}>({{baseTypeOrEntityName}}::class.java, {{entityName}})
+
+        // hint:5F72B6D8
+        override fun parseWrapper(wrapper: Wrapper): {{baseTypeOrEntityName}} {
+{{#extensions}}
+            return de.lancom.openapi.jackson.extensionParser(wrapper, ::parseWrapperWithExtensions)
+        }
+
+        // hint:2C0E94A7
+        fun parseWrapperWithExtensions(wrapper: Wrapper, extensions: Field<Map<String, Extension?>>): {{entityName}} {
+{{/extensions}}
+            return {{entityName}}(
+{{#fields}}
+{{^field.fixed}}
+{{#jsonNode}}
+                {{name.underscore}} = wrapper.jsonNodeFieldOrUnsetIfEmpty,
+{{/jsonNode}}
+{{^jsonNode}}
+                {{name.underscore}} = wrapper{{{get0}}} {
+                    {{{get1}}} {
+                        {{{get2}}} {
+                            {{{get3}}}
+                        }
+                    }
+                },
+{{/jsonNode}}
+{{/field.fixed}}
+{{/fields}}
+{{#extensions}}
+                _extensions = extensions,
+{{/extensions}}
+            )
+        }
+    }

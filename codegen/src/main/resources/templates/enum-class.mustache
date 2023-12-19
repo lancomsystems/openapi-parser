@@ -1,0 +1,14 @@
+{{>banner}}
+package de.lancom.openapi.entity
+
+// hint:D094ACB1
+@Suppress("EnumEntryName")
+enum class {{enumClassName}} : de.lancom.openapi.jackson.Key {
+{{#values}}
+    {{{escaped}}},
+{{/values}}
+    ;
+
+    override val key: String
+        get() = name
+}

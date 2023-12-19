@@ -1,0 +1,44 @@
+{{>banner}}
+package de.lancom.openapi.entity
+
+{{#imports}}
+import {{.}}
+{{/imports}}
+
+// hint:9A1BF04C
+@Suppress("PropertyName")
+@JsonSerialize(using = {{companionOrEntityName}}.Companion.Serializer::class)
+@JsonDeserialize(using = {{companionOrEntityName}}.Companion.Deserializer::class)
+{{#dataClass}}
+data class {{entityName}}(
+{{#fields}}
+{{^field.fixed}}
+    val {{name.underscore}}: Field<{{{typeOpt}}}> = {{{unsetField}}},
+{{/field.fixed}}
+{{/fields}}
+) {{#interface}}: {{{interface}}}{{/interface}} {
+{{/dataClass}}
+{{^dataClass}}
+object {{entityName}}{{#interface}} : {{{interface}}}{{/interface}} {
+{{/dataClass}}
+
+{{#fields}}
+{{#field.fixed}}
+    // hint:C89A3E1F
+    override val type: {{{type}}} = {{field.fixed}}
+
+{{/field.fixed}}
+{{^field.fixed}}
+{{>field}}
+{{/field.fixed}}
+{{/fields}}
+{{>entity-descriptor}}
+    override fun toString(): String {
+        return this.toYamlString()
+    }
+
+{{>merge}}
+{{#companion}}
+{{>data-class-companion}}
+{{/companion}}
+}

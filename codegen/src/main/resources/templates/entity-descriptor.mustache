@@ -1,0 +1,29 @@
+{{#entityDescriptor}}
+    // hint:6A81E3FD
+    override val entityDescriptor: EntityDescriptor by lazy {
+        EntityDescriptor(
+            entity = this,
+            jsonNode = {{{jsonNode}}},
+            map = mapOf(
+{{#map}}
+{{#field.fixed}}
+                "{{name.lowercase}}" to Field({{name.escaped}}),
+{{/field.fixed}}
+{{^field.fixed}}
+                "{{name.lowercase}}" to {{name.underscore}},
+{{/field.fixed}}
+{{/map}}
+            ),
+            flatMap = listOf(
+{{#flatMap}}
+                {{name.underscore}},
+{{/flatMap}}
+            ),
+            flatten = listOf(
+{{#flatten}}
+                {{name.underscore}},
+{{/flatten}}
+            ),
+        )
+    }
+{{/entityDescriptor}}

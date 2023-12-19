@@ -1,0 +1,27 @@
+    // hint:A0E5F382
+    override fun mergeEntity(other: Entity?): {{entityName}} {
+        return when (other) {
+            null ->
+                this
+
+            is {{entityName}} ->
+                merge(other)
+
+            else ->
+                TODO()
+        }
+    }
+
+    // hint:716BFD54
+    fun merge(other: {{baseTypeOrEntityName}}?): {{entityName}} {
+        if (other == null) return this
+{{#baseType}}
+        if (other !is {{entityName}}) TODO()
+{{/baseType}}
+        return this
+{{#fields}}
+{{^field.fixed}}
+            .merge{{name.uppercase}}Field(other.{{name.underscore}})
+{{/field.fixed}}
+{{/fields}}
+    }

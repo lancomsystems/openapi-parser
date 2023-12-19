@@ -1,0 +1,32 @@
+{{>banner}}
+package de.lancom.openapi.serialisation
+
+import de.lancom.openapi.entity.{{entityName}}
+import de.lancom.openapi.serialisation.testcases.*
+import org.junit.jupiter.params.provider.Arguments
+import java.util.stream.Stream
+
+// hint:6E7C2D8B
+class {{entityName}}SerialisationTest : AbstractSerialisationTest() {
+    companion object {
+
+        const val emptyYaml = "{{{emptyYaml}}}"
+{{#emptySubject}}
+        val emptySubject = {{{emptySubject}}}
+{{/emptySubject}}
+
+        private val testCases: List<TestCase<{{entityName}}>> = entityFieldTestCases(
+            emptyYaml = emptyYaml,
+{{#emptySubject}}
+            emptySubject = emptySubject,
+{{/emptySubject}}
+            fieldTests = listOf(
+            )
+        )
+
+        @JvmStatic
+        fun testCases(): Stream<Arguments> {
+            return testCases.toArgumentsStream()
+        }
+    }
+}
