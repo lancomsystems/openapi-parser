@@ -1,0 +1,10 @@
+/.gradle/
+/*/.gradle/
+build
+*.iml
+/.idea/
+!/.idea/
+/.idea/*
+!/.idea/runConfigurations/
+!/.idea/inspectionProfiles/
+!/.idea/codeStyleSettings.xml
