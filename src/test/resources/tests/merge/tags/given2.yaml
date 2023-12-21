@@ -1,0 +1,17 @@
+openapi: 3.0.1
+info:
+  title: given2
+  version: 0.0.2
+tags:
+  - name: tag2
+  - name: tag3
+    description: given2 tag3
+paths:
+  "/info2":
+    get:
+      tags:
+        - "tag2"
+        - "tag3"
+      responses:
+        "200":
+          description: "description 2"

@@ -1,0 +1,47 @@
+openapi: 3.0.1
+info:
+  title: title
+  version: 0.0.0
+components:
+  responses:
+    info1:
+      description: "description info1"
+    info2:
+      description: "description info2"
+    merged:
+      description: "description merged"
+    renamed:
+      description: "description renamed 1"
+    renamed_given2:
+      description: "description renamed 2"
+paths:
+  "/cloud-service-given1/info1":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/info1"
+  "/cloud-service-given1/merged":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/merged"
+  "/cloud-service-given1/renamed":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/renamed"
+  "/cloud-service-given2/info2":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/info2"
+  "/cloud-service-given2/merged":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/merged"
+  "/cloud-service-given2/renamed":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/renamed_given2"

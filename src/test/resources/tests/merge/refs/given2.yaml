@@ -1,0 +1,28 @@
+openapi: 3.0.1
+info:
+  title: given2
+  version: 0.0.2
+components:
+  responses:
+    info2:
+      description: "description info2"
+    merged:
+      description: "description merged"
+    renamed:
+      description: "description renamed 2"
+paths:
+  "/info2":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/info2"
+  "/merged":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/merged"
+  "/renamed":
+    get:
+      responses:
+        "200":
+          $ref: "#/components/responses/renamed"

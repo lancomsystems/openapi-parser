@@ -1,0 +1,18 @@
+openapi: 3.0.1
+info:
+  title: given1
+  version: 0.0.1
+x-on-openapi-1: 1
+x-on-openapi-both-a: 1
+x-on-openapi-both-b:
+  value: 1
+paths:
+  x-on-paths-3: 1
+  x-on-paths-4: "hello"
+  x-on-paths-5:
+    hello: world
+  "/info1":
+    get:
+      responses:
+        "200":
+          description: "description 1"

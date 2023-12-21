@@ -1,0 +1,22 @@
+openapi: 3.0.1
+components:
+  schemas:
+    additionalPropertiesTrue:
+      additionalProperties: true
+      type: object
+
+    additionalPropertiesEmpty:
+      # for empty objects, the default true is used
+      #additionalProperties: { }
+      additionalProperties: true
+      type: object
+
+    additionalPropertiesSchema:
+      additionalProperties:
+        type: object
+      type: object
+
+    additionalPropertiesRef:
+      additionalProperties:
+        $ref: "some/ref"
+      type: object
