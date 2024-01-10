@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "commitMessagePrefix": "Upgrade: ",
+  "packageRules": [
+  ],
+  "extends": [
+    "config:base"
+  ]
+}
