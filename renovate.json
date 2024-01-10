@@ -2,6 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "commitMessagePrefix": "Upgrade: ",
   "packageRules": [
+    {
+      "groupName": "com.fasterxml.jackson",
+      "matchPackagePrefixes": [
+        "com.fasterxml.jackson"
+      ]
+    }
   ],
   "extends": [
     "config:base"
