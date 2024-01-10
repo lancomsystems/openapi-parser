@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    if: "${{ (github.event.commits[0].author.name != 'semantic-release-bot') }}"
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Semantic Release
+        uses: docker://ghcr.io/codfish/semantic-release-action:v3
+        with:
+          additional-packages: |
+            ['@semantic-release/commit-analyzer','@semantic-release/release-notes-generator','@semantic-release/changelog','@semantic-release/exec','@semantic-release/git','conventional-changelog-eslint','conventional-changelog-conventionalcommits']
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}

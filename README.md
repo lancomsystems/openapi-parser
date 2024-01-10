@@ -1,5 +1,7 @@
 # OpenAPI 3.0 Parser in Kotlin
 
+Latest Version: 0.1.0
+
 ## Project Description
 
 This open-source project provides an OpenAPI 3.0 Parser implemented in Kotlin, utilizing immutable data classes. In contrast to [Swagger Parser](https://github.com/swagger-api/swagger-parser), this parser employs immutable data classes for clearer and safer data manipulation.
@@ -39,18 +41,18 @@ To use the project, you can include it in your Gradle or Maven project as follow
 
 `build.gradle`
 ```gradle
-implementation 'de.lancom.openapi:openapi-parser:0.1.0'
+implementation 'io.github.lancomsystems.openapi.parser:openapi-parser:0.1.0'
 ```
 
 `build.gradle.kts`
 ```gradle
-implementation("de.lancom.openapi:openapi-parser:0.1.0")'
+implementation("io.github.lancomsystems.openapi.parser:openapi-parser:0.1.0")'
 ```
 
 ### Maven
 ```maven
 <dependency>
-    <groupId>de.lancom.openapi</groupId>
+    <groupId>io.github.lancomsystems.openapi.parser</groupId>
     <artifactId>openapi-parser</artifactId>
     <version>0.1.0</version>
 </dependency>

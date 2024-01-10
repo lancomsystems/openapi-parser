@@ -1,0 +1,51 @@
+branches:
+  - name: main
+plugins:
+  - - "@semantic-release/commit-analyzer"
+    - preset: eslint
+      releaseRules:
+        - tag: Fix
+          release: patch
+        - tag: Build
+          release: patch
+        - tag: Upgrade
+          release: patch
+        - tag: Chore
+          release: patch
+        - tag: Update
+          release: minor
+        - tag: New
+          release: minor
+        - tag: Breaking
+          release: major
+  - - "@semantic-release/release-notes-generator"
+    - preset: conventionalcommits
+      presetConfig:
+        types:
+          - type: breaking
+            section: Breaking Changes
+          - type: new
+            section: New
+          - type: update
+            section: Updates
+          - type: fix
+            section: Bug Fixes
+          - type: chore
+            section: Refactorings
+          - type: upgrade
+            section: Dependency Updates
+          - type: build
+            section: Build System Improvements
+  - - "@semantic-release/changelog"
+  - - "@semantic-release/exec"
+    - prepareCmd: |-
+        sed -i "s/^libraryVersion=.*/libraryVersion=${nextRelease.version}/" gradle.properties
+        sed -i "s/^Latest Version: .*/Latest Version: ${nextRelease.version}/" README.md
+        sed -i "s#^    <version>[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+</version>#    <version>${nextRelease.version}</version>#" README.md
+        sed -i "s#io.github.lancomsystems.openapi.parser:openapi-parser:[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+#io.github.lancomsystems.openapi.parser:openapi-parser:${nextRelease.version}#" README.md
+  - - "@semantic-release/git"
+    - assets:
+        - README.md
+        - CHANGELOG.md
+        - gradle.properties
+      message: "Release: ${nextRelease.version}\n\n${nextRelease.notes}"
