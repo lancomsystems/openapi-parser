@@ -20,7 +20,7 @@ group = "io.github.lancomsystems.openapi.parser"
 version = libraryVersion
 
 dependencies {
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
