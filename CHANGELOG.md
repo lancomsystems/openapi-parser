@@ -1,3 +1,15 @@
+## [1.0.2](https://github.com/lancomsystems/openapi-parser/compare/v1.0.1...v1.0.2) (2024-01-11)
+
+
+### Dependency Updates
+
+* Update com.fasterxml.jackson to v2.16.1 ([f1155f1](https://github.com/lancomsystems/openapi-parser/commit/f1155f12455f0904592beac408b9460d851997fb))
+
+
+### Build System Improvements
+
+* use io.github.gradle-nexus.publish-plugin ([d27de1e](https://github.com/lancomsystems/openapi-parser/commit/d27de1e12c1d6598e38b8b35ccc718159a3187e8))
+
 ## [1.0.1](https://github.com/lancomsystems/openapi-parser/compare/v1.0.0...v1.0.1) (2024-01-10)
 
 
