@@ -27,8 +27,8 @@ jobs:
           distribution: temurin
           java-version: 11
 
-      - name: gradle publish
-        run: ./gradlew publish --stacktrace
+      - name: gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --stacktrace
         env:
           GPG_SIGNING_KEY_ID: ${{ secrets.GPG_SIGNING_KEY_ID }}
           GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
