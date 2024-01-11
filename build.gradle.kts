@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.9.22"
+    id("io.github.gradle-nexus.publish-plugin") version "v1.3.0"
     `java-library`
     `maven-publish`
     signing
@@ -44,6 +45,23 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
+val mavenUsername = System.getenv("MAVEN_USERNAME")
+val mavenPassword = System.getenv("MAVEN_PASSWORD")
+if (mavenUsername != null && mavenPassword != null) {
+    nexusPublishing {
+        repositories {
+            sonatype {
+                nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+                snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                username = mavenUsername
+                password = mavenPassword
+            }
+        }
+    }
+} else if (mavenUsername != null || mavenPassword != null) {
+    throw GradleException("missing MAVEN_USERNAME or MAVEN_PASSWORD!")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -51,7 +69,8 @@ publishing {
             from(components["java"])
             pom {
                 name = "openapi-parser"
-                description = "This open-source project provides an OpenAPI 3.0 Parser implemented in Kotlin, utilizing immutable data classes"
+                description =
+                    "This open-source project provides an OpenAPI 3.0 Parser implemented in Kotlin, utilizing immutable data classes"
                 url = "https://github.com/lancomsystems/openapi-parser"
                 licenses {
                     license {
@@ -72,26 +91,6 @@ publishing {
                 }
             }
         }
-    }
-    val mavenUsername = System.getenv("MAVEN_USERNAME")
-    val mavenPassword = System.getenv("MAVEN_PASSWORD")
-    if (mavenUsername != null && mavenPassword != null) {
-        repositories {
-            maven {
-                name = "OSSRH"
-                url = if (version.toString().endsWith("SNAPSHOT")) {
-                    uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
-                } else {
-                    uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                }
-                credentials {
-                    username = mavenUsername
-                    password = mavenPassword
-                }
-            }
-        }
-    } else if (mavenUsername != null || mavenPassword != null) {
-        throw GradleException("missing MAVEN_USERNAME or MAVEN_PASSWD!")
     }
 }
 
