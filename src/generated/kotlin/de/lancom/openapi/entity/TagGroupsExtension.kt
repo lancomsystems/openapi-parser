@@ -84,7 +84,7 @@ data class TagGroupsExtension(
 
     // hint:3E9A8C01
     fun addTags(tags: List<TagGroupsExtensionEntry?>): TagGroupsExtension {
-        return setTags((this.tags ?: emptyList()) + (tags ?: emptyList()))
+        return setTags(this.tags + tags)
     }
 
     // hint:F7420EB5

@@ -102,7 +102,12 @@
 
     // hint:3E9A8C01
     fun add{{name.uppercase}}({{{name.escaped}}}: {{{typeOpt}}}): {{entityName}} {
+{{#addOnlyToNull}}
+        return set{{name.uppercase}}(this.{{{name.escaped}}} + {{{name.escaped}}})
+{{/addOnlyToNull}}
+{{^addOnlyToNull}}
         return set{{name.uppercase}}((this.{{{name.escaped}}} ?: empty{{collectionType}}()) + ({{{name.escaped}}} ?: empty{{collectionType}}()))
+{{/addOnlyToNull}}
     }
 
     // hint:F7420EB5
