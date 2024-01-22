@@ -1,3 +1,15 @@
+## [1.1.0](https://github.com/lancomsystems/openapi-parser/compare/v1.0.2...v1.1.0) (2024-01-22)
+
+
+### New
+
+* refactored mergeOpenApi() ([b1bbcc1](https://github.com/lancomsystems/openapi-parser/commit/b1bbcc1861ae63706d103727c26216e3476c755e))
+
+
+### Refactorings
+
+* fixed compiler warning ([495528a](https://github.com/lancomsystems/openapi-parser/commit/495528a6736f8aed3a67f5ad17660ae23827fcb4))
+
 ## [1.0.2](https://github.com/lancomsystems/openapi-parser/compare/v1.0.1...v1.0.2) (2024-01-11)
 
 
