@@ -57,3 +57,20 @@ implementation("io.github.lancomsystems.openapi.parser:openapi-parser:1.0.2")'
     <version>1.0.2</version>
 </dependency>
 ```
+
+## Usage
+
+```kotlin
+val given: Map<String, OpenApi> = // ... Key: API-Name, Value: OpenApi Definition
+given.mergeOpenApi(
+    default = OpenApi().addInfo(
+        Info()
+            .addTitle("title")
+            .addVersion("0.0.0")
+    ),
+    patchTag = { name, tag -> "$name:$tag" },
+    patchPath = { name, path -> "/cloud-service-$name$path" },
+    patchOperationId = { name, operationId -> "$name${operationId.replaceFirstChar(Char::uppercaseChar)}" },
+    createTagGroups = true,
+)
+```

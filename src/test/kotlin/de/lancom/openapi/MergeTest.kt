@@ -1,7 +1,8 @@
 package de.lancom.openapi
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import de.lancom.openapi.entity.*
+import de.lancom.openapi.entity.Info
+import de.lancom.openapi.entity.OpenApi
 import de.lancom.openapi.tools.yamlMapper
 import de.lancom.openapi.utils.mergeOpenApi
 import org.junit.jupiter.params.ParameterizedTest
@@ -71,10 +72,16 @@ class MergeTest {
     fun testParseRequiredArgs(testcase: MergeTestCase) {
         val given = testcase.given()
         val expected = testcase.expected()
-        val actual = given.mergeOpenApi(default)
-        de.lancom.openapi.assertYamlEquals(
-                expected = expected,
-                actual = actual,
+        val actual = given.mergeOpenApi(
+            default = default,
+            patchTag = { name, tag -> "$name:$tag" },
+            patchPath = { name, path -> "/cloud-service-$name$path" },
+            patchOperationId = { name, operationId -> "$name${operationId.replaceFirstChar(Char::uppercaseChar)}" },
+            createTagGroups = true,
+        )
+        assertYamlEquals(
+            expected = expected,
+            actual = actual,
         )
     }
 

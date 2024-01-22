@@ -2,14 +2,21 @@ package de.lancom.openapi.utils
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.readValue
-import de.lancom.openapi.entity.*
+import de.lancom.openapi.entity.Components
+import de.lancom.openapi.entity.OpenApi
+import de.lancom.openapi.entity.Operation
+import de.lancom.openapi.entity.PathItem
+import de.lancom.openapi.entity.Paths
+import de.lancom.openapi.entity.RawExtension
+import de.lancom.openapi.entity.Tag
+import de.lancom.openapi.entity.TagGroupsExtension
+import de.lancom.openapi.entity.TagGroupsExtensionEntry
 import de.lancom.openapi.field.Field
 import de.lancom.openapi.refs.ReferenceOrInstance
 import de.lancom.openapi.refs.Referenceable
 import de.lancom.openapi.tools.toYamlString
 import de.lancom.openapi.tools.updateOperations
 import de.lancom.openapi.tools.yamlMapper
-import kotlin.collections.flatten
 
 private data class Rename(
     val component: String,
@@ -74,8 +81,8 @@ private data class Rename(
 }
 
 private fun Components?.componentsToRename(
-        other: Components?,
-        suffix: String
+    other: Components?,
+    suffix: String
 ): List<Rename> {
     if (this == null || other == null) {
         return emptyList()
@@ -114,14 +121,15 @@ private inline fun <reified T> T.editYaml(editor: (String) -> String): T {
 }
 
 fun Map<String, OpenApi>.mergeOpenApi(
-        default: OpenApi = OpenApi(),
-        prefixTags: Boolean = true,
-        prefixPaths: Boolean = true,
-        createTagGroups: Boolean = true,
+    default: OpenApi,
+    patchTag: ((String, String) -> String)?,
+    patchPath: ((String, String) -> String)?,
+    patchOperationId: ((String, String) -> String)?,
+    createTagGroups: Boolean,
 ): OpenApi {
     return toList().fold(default) { left, (name, right) ->
-        val prefixed = if (prefixPaths) {
-            right.prefixPaths("cloud-service-$name")
+        val prefixed = if (patchPath != null) {
+            right.patchPaths(name, patchPath)
         } else {
             right
         }
@@ -134,8 +142,14 @@ fun Map<String, OpenApi>.mergeOpenApi(
                 rename.renameYaml(subject)
             }
         }.let { renamed ->
-            if (prefixTags) {
-                renamed.prefixTags("$name:")
+            if (patchTag != null) {
+                renamed.patchTags(name, patchTag)
+            } else {
+                renamed
+            }
+        }.let { renamed ->
+            if (patchOperationId != null) {
+                renamed.prefixOperationIds(name, patchOperationId)
             } else {
                 renamed
             }
@@ -165,7 +179,25 @@ private fun OpenApi.addRedocTagGroups(service: String, createTagGroups: Boolean)
     }
 }
 
-private fun OpenApi.prefixTags(prefix: String): OpenApi {
+private fun OpenApi.prefixOperationIds(name: String, prefixOperationId: ((String, String) -> String)): OpenApi {
+    return updatePaths { paths: Paths? ->
+        paths?.updatePathItems { pathItems: Map<String, PathItem?> ->
+            pathItems.mapValues { (_, pathItem: PathItem?) ->
+                pathItem?.updateOperations { operation: Operation? ->
+                    operation?.updateOperationId { operationId: String? ->
+                        if (operationId == null) {
+                            null
+                        } else {
+                            prefixOperationId(name, operationId)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun OpenApi.patchTags(name: String, patchTag: ((String, String) -> String)): OpenApi {
     return updateTags { tags ->
         tags?.map { tag ->
             if (tag == null) {
@@ -178,7 +210,12 @@ private fun OpenApi.prefixTags(prefix: String): OpenApi {
                 } else {
                     tag
                 }
-                withExtension.setName("$prefix${tag.name}")
+                val tagName = tag.name
+                if (tagName == null) {
+                    withExtension
+                } else {
+                    withExtension.setName(patchTag(name, tagName))
+                }
             }
         }
     }.updatePaths { paths: Paths? ->
@@ -186,8 +223,12 @@ private fun OpenApi.prefixTags(prefix: String): OpenApi {
             pathItems.mapValues { (_, pathItem: PathItem?) ->
                 pathItem?.updateOperations { operation: Operation? ->
                     operation?.updateTags { tags: List<String?>? ->
-                        tags?.map { tag ->
-                            "$prefix$tag"
+                        tags?.mapNotNull { tag ->
+                            if (tag == null) {
+                                null
+                            } else {
+                                patchTag(name, tag)
+                            }
                         }
                     }
                 }
@@ -210,11 +251,11 @@ private val PathItem.operations: List<Operation>
         trace,
     )
 
-private fun OpenApi.prefixPaths(prefix: String): OpenApi {
+private fun OpenApi.patchPaths(name: String, patchPath: ((String, String) -> String)): OpenApi {
     return updatePaths { p: Paths? ->
         p?.updatePathItems { pi: Map<String, PathItem?> ->
             pi.mapKeys { (path, _) ->
-                "/$prefix$path"
+                patchPath(name, path)
             }
         }
     }
