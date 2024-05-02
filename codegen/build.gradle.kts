@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.github.spullara.mustache.java:compiler:0.9.11")
+    implementation("com.github.spullara.mustache.java:compiler:0.9.13")
 }
 
 kotlin {
