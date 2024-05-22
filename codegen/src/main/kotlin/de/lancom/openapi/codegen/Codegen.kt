@@ -2,10 +2,8 @@ package de.lancom.openapi.codegen
 
 import com.github.mustachejava.DefaultMustacheFactory
 import com.github.mustachejava.Mustache
-import de.lancom.openapi.codegen.field.Field
 import de.lancom.openapi.codegen.type.EnumType
-import de.lancom.openapi.view.EnumClassView
-import de.lancom.openapi.view.FieldView
+import de.lancom.openapi.codegen.view.EnumClassView
 import java.io.File
 import java.io.StringWriter
 
@@ -38,7 +36,8 @@ fun <T> processTemplate(value: T, template: Mustache, file: File) {
 fun main() {
     val basedir = "../src"
     listOf(
-        "$basedir/generated/kotlin/de/lancom/openapi/entity",
+        "$basedir/generated/kotlin/de/lancom/openapi/parser/entity",
+        "$basedir/generated/kotlin/de/lancom/openapi/common/types",
         "$basedir/generatedtest",
     ).forEach { dir ->
         File(dir).deleteRecursively()
@@ -48,22 +47,20 @@ fun main() {
         processTemplate(
             value = view,
             template = mustacheTemplateDataClass,
-            file = File("$basedir/generated/kotlin/de/lancom/openapi/entity/${view.entityName}.kt"),
+            file = File("$basedir/generated/kotlin/de/lancom/openapi/parser/entity/${view.entityName}.kt"),
         )
         val testView = entity.toTestView()
         processTemplate(
             value = testView,
             template = mustacheTemplateTest,
-            file = File("$basedir/generatedtest/kotlin/de/lancom/openapi/serialisation/${testView.entityName}SerialisationTest.kt"),
+            file = File("$basedir/generatedtest/kotlin/de/lancom/openapi/parser/serialisation/${testView.entityName}SerialisationTest.kt"),
         )
     }
-    allOpenApiEntities.flatMap { entityView ->
-        entityView.fields.map(FieldView::field).map(Field::type)
-    }.filterIsInstance<EnumType>().toSet().forEach { enumType ->
+    EnumType.all.forEach { enumType ->
         processTemplate(
             value = EnumClassView(enumType),
             template = mustacheTemplateEnumClass,
-            file = File("$basedir/generated/kotlin/de/lancom/openapi/entity/${enumType.enum}.kt"),
+            file = File("$basedir/generated/kotlin/de/lancom/openapi/common/types/${enumType.enum}.kt"),
         )
     }
 }

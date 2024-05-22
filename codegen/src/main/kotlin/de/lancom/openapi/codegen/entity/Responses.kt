@@ -1,9 +1,9 @@
 package de.lancom.openapi.codegen.entity
 
-import de.lancom.openapi.view.OpenApiEntity
 import de.lancom.openapi.codegen.field.fieldResponseOrRef
 import de.lancom.openapi.codegen.type.EntityType
 import de.lancom.openapi.codegen.type.SimpleType
+import de.lancom.openapi.codegen.view.OpenApiEntity
 
 val responses = OpenApiEntity(
     entityType = EntityType.Responses,

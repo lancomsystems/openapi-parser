@@ -24,14 +24,14 @@ data class SimpleType(
         val responseStatusCode = SimpleType(
             type = "ResponseStatusCode",
             imports = setOf(
-                "de.lancom.openapi.entity.ResponseStatusCode",
+                "de.lancom.openapi.parser.entity.ResponseStatusCode",
             ),
         )
 
         val securitySchemeType = SimpleType(
             type = "SecuritySchemeType",
             imports = setOf(
-                "de.lancom.openapi.entity.SecuritySchemeType",
+                "de.lancom.openapi.parser.entity.SecuritySchemeType",
             ),
         )
 

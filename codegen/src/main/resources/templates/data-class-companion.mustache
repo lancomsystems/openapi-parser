@@ -1,17 +1,55 @@
 
     companion object : {{#hasJsonNode}}JsonEntityFactory<{{baseTypeOrEntityName}}>{{/hasJsonNode}}{{^hasJsonNode}}{{#entityType.referenceable}}Reference{{/entityType.referenceable}}Parser<{{baseTypeOrEntityName}}>{{/hasJsonNode}} {
 
+        data class Fields(val value: String) {
+            val set: Set<Fields> = setOf(this)
+
+            companion object {
+{{#fields}}
+{{^flat}}
+                val {{{name.escaped}}} = Fields("{{name.lowercase}}")
+{{/flat}}
+{{/fields}}
+                val all: Set<Fields> = setOf(
+{{#fields}}
+{{^flat}}
+                    {{{name.escaped}}},
+{{/flat}}
+{{/fields}}
+                )
+                val skip: Set<Fields> = setOf(
+{{#fields}}
+{{#flat}}
+                    Fields("{{name.lowercase}}"),
+{{/flat}}
+{{/fields}}
+                )
+
+                fun cleanupFields(fields: Iterable<Fields>): Set<Fields> {
+                    return fields.filterNot(skip::contains).toSet() + all
+                }
+
+                fun fromWrapper(wrapper: Wrapper): Set<Fields> {
+                    return cleanupFields(wrapper.fieldOrder.map(::Fields))
+                }
+            }
+        }
+
         class Serializer : EntitySerializer<{{baseTypeOrEntityName}}>({{baseTypeOrEntityName}}::class.java, {{entityName}})
         class Deserializer : EntityDeserializer<{{baseTypeOrEntityName}}>({{baseTypeOrEntityName}}::class.java, {{entityName}})
 
         // hint:5F72B6D8
         override fun parseWrapper(wrapper: Wrapper): {{baseTypeOrEntityName}} {
 {{#extensions}}
-            return de.lancom.openapi.jackson.extensionParser(wrapper, ::parseWrapperWithExtensions)
+            return de.lancom.openapi.parser.jackson.extensionParser(wrapper, ::parseWrapperWithExtensions)
         }
 
         // hint:2C0E94A7
-        fun parseWrapperWithExtensions(wrapper: Wrapper, extensions: Field<Map<String, Extension?>>): {{entityName}} {
+        fun parseWrapperWithExtensions(
+            wrapper: Wrapper,
+            extensions: Field<Map<String, Extension?>>,
+            fieldOrder: Set<String>,
+        ): {{entityName}} {
 {{/extensions}}
             return {{entityName}}(
 {{#fields}}
@@ -33,6 +71,14 @@
 {{#extensions}}
                 _extensions = extensions,
 {{/extensions}}
+{{#companion}}
+{{#extensions}}
+                __field_order = fieldOrder.map(::Fields).toSet() + Fields.all,
+{{/extensions}}
+{{^extensions}}
+                __field_order = Fields.all,
+{{/extensions}}
+{{/companion}}
             )
         }
     }

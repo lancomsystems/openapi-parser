@@ -2,18 +2,6 @@ openapi: 3.0.1
 info:
   title: title
   version: 0.0.0
-components:
-  responses:
-    info1:
-      description: "description info1"
-    info2:
-      description: "description info2"
-    merged:
-      description: "description merged"
-    renamed:
-      description: "description renamed 1"
-    renamed_given2:
-      description: "description renamed 2"
 paths:
   "/cloud-service-given1/info1":
     get:
@@ -45,3 +33,15 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/renamed_given2"
+components:
+  responses:
+    info1:
+      description: "description info1"
+    merged:
+      description: "description merged"
+    renamed:
+      description: "description renamed 1"
+    info2:
+      description: "description info2"
+    renamed_given2:
+      description: "description renamed 2"

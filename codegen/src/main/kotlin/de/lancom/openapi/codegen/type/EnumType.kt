@@ -38,15 +38,6 @@ data class EnumType(
             ),
         )
 
-        val ResponseStatusCode = EnumType(
-            enum = "ResponseStatusCode",
-            values = listOf(
-                "header",
-                "query",
-                "cookie",
-            ),
-        )
-
         val SchemaType = EnumType(
             enum = "SchemaType",
             values = listOf(
@@ -67,6 +58,48 @@ data class EnumType(
                 "pipeDelimited",
                 "deepObject",
             ),
+        )
+
+        private val ParameterStyle = EnumType(
+            enum = "ParameterStyle",
+            values = listOf(
+                "",
+                "matrix",
+                "label",
+                "form",
+                "spaceDelimited",
+                "pipeDelimited",
+                "deepObject",
+                "simple",
+            ),
+        )
+
+        private val ComponentType = EnumType(
+            enum = "ComponentType",
+            values = listOf(
+                "callbacks",
+                "examples",
+                "headers",
+                "links",
+                "operations",
+                "parameters",
+                "pathItems",
+                "requestBodies",
+                "responses",
+                "schemas",
+                "securitySchemes",
+                "servers",
+            ),
+        )
+
+        val all: Set<EnumType> = setOf(
+            HeaderStyle,
+            In,
+            InApiKey,
+            SchemaType,
+            Style,
+            ParameterStyle,
+            ComponentType,
         )
     }
 }

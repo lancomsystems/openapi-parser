@@ -2,7 +2,7 @@ package de.lancom.openapi.codegen.entity
 
 import de.lancom.openapi.codegen.field.fieldSchemaRef
 import de.lancom.openapi.codegen.type.EntityType
-import de.lancom.openapi.view.OpenApiEntity
+import de.lancom.openapi.codegen.view.OpenApiEntity
 
 val additionalPropertiesReference = OpenApiEntity(
     entityType = EntityType.AdditionalProperties,
@@ -11,7 +11,7 @@ val additionalPropertiesReference = OpenApiEntity(
     companion = false,
     extensions = false,
     emptyYaml = "\\\$ref: '#/components/schemas/Example'",
-    emptySubject = "de.lancom.openapi.entity.AdditionalProperties(\"#/components/schemas/Example\")",
+    emptySubject = "de.lancom.openapi.parser.entity.AdditionalProperties(\"#/components/schemas/Example\")",
     fields = listOf(
         fieldSchemaRef.flat().name("reference"),
     )

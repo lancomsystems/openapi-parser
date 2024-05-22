@@ -1,0 +1,25 @@
+openapi: 3.0.1
+info:
+  title: title
+  version: 0.0.0
+paths:
+  "/cloud-service-given1/info1":
+    get:
+      responses:
+        "200":
+          description: "description 1"
+  "/cloud-service-given1/info2":
+    get:
+      responses:
+        "200":
+          description: "description 2"
+  "/cloud-service-given2/info2":
+    get:
+      responses:
+        "200":
+          description: "description 2"
+  "/cloud-service-given2/info1":
+    get:
+      responses:
+        "200":
+          description: "description 1"

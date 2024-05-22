@@ -1,18 +1,23 @@
 package de.lancom.openapi.codegen.field
 
 import de.lancom.openapi.codegen.type.*
-import de.lancom.openapi.view.FieldView
-import de.lancom.openapi.view.NameView
+import de.lancom.openapi.codegen.view.FieldView
+import de.lancom.openapi.codegen.view.NameView
 
 data class Field(
     val type: Type,
     val flat: Boolean = false,
     val regex: Boolean = false,
+    val override: Boolean = false,
     val unsetIfEmpty: Boolean = false,
     val default: String? = null,
     val fixed: String? = null,
     val options: List<String> = emptyList(),
 ) {
+    fun override(): Field {
+        return copy(override = true)
+    }
+
     fun flat(): Field {
         return copy(flat = true)
     }

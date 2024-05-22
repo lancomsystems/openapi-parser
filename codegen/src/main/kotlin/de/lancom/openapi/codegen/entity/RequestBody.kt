@@ -4,7 +4,7 @@ import de.lancom.openapi.codegen.field.fieldBooleanRequiredDefaultFalse
 import de.lancom.openapi.codegen.field.fieldMediaType
 import de.lancom.openapi.codegen.field.fieldString
 import de.lancom.openapi.codegen.type.EntityType
-import de.lancom.openapi.view.OpenApiEntity
+import de.lancom.openapi.codegen.view.OpenApiEntity
 
 val requestBody = OpenApiEntity(
     entityType = EntityType.RequestBody,

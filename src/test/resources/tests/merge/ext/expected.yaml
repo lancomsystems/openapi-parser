@@ -2,14 +2,7 @@ openapi: 3.0.1
 info:
   title: title
   version: 0.0.0
-x-on-openapi-1: 1
-x-on-openapi-2: 2
-x-on-openapi-both-a: 2
-x-on-openapi-both-b:
-  value: 2
 paths:
-  x-on-paths-1: { }
-  x-on-paths-2: true
   x-on-paths-3: 2
   x-on-paths-4: "hello"
   x-on-paths-5:
@@ -30,3 +23,10 @@ paths:
       responses:
         "200":
           description: "description 2"
+  x-on-paths-1: { }
+  x-on-paths-2: true
+x-on-openapi-1: 1
+x-on-openapi-both-a: 2
+x-on-openapi-both-b:
+  value: 2
+x-on-openapi-2: 2

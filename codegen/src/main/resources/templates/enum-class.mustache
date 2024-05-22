@@ -1,14 +1,31 @@
 {{>banner}}
-package de.lancom.openapi.entity
+package de.lancom.openapi.common.types
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import de.lancom.openapi.common.jackson.JsonWrapper
+import de.lancom.openapi.common.jackson.JsonWrapperCompanion
 
 // hint:D094ACB1
-@Suppress("EnumEntryName")
-enum class {{enumClassName}} : de.lancom.openapi.jackson.Key {
+@JsonSerialize(using = {{enumClassName}}.Companion.Serializer::class)
+@JsonDeserialize(using = {{enumClassName}}.Companion.Deserializer::class)
+enum class {{enumClassName}}(
+    override val key: kotlin.String,
+) : JsonWrapper {
 {{#values}}
-    {{{escaped}}},
+    {{{uppercaseOrDefault}}}("{{{lowercase}}}"),
 {{/values}}
     ;
 
-    override val key: String
-        get() = name
+    companion object : JsonWrapperCompanion<{{enumClassName}}>({{enumClassName}}::fromString, {{enumClassName}}::class.java) {
+        class Serializer : AbstractSerializer()
+        class Deserializer : AbstractDeserializer()
+
+        val byKey: Map<kotlin.String, {{enumClassName}}> = entries.associateBy({{enumClassName}}::key)
+
+        fun fromString(value: kotlin.String): {{enumClassName}} {
+            return byKey[value]
+              ?: throw IllegalArgumentException("Unknown {{enumClassName}} value: $value")
+        }
+    }
 }

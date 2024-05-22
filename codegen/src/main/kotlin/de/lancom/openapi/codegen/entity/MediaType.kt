@@ -1,11 +1,11 @@
 package de.lancom.openapi.codegen.entity
 
-import de.lancom.openapi.view.OpenApiEntity
 import de.lancom.openapi.codegen.field.fieldEncoding
-import de.lancom.openapi.codegen.field.fieldExampleOrRef
 import de.lancom.openapi.codegen.field.fieldExampleJson
+import de.lancom.openapi.codegen.field.fieldExampleOrRef
 import de.lancom.openapi.codegen.field.fieldSchemaOrRef
 import de.lancom.openapi.codegen.type.EntityType
+import de.lancom.openapi.codegen.view.OpenApiEntity
 
 val mediaType = OpenApiEntity(
     entityType = EntityType.MediaType,
