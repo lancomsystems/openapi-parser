@@ -19,9 +19,12 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: docker://ghcr.io/codfish/semantic-release-action:v3
+        uses: cycjimmy/semantic-release-action@v4
         with:
-          additional-packages: |
-            ['@semantic-release/commit-analyzer','@semantic-release/release-notes-generator','@semantic-release/changelog','@semantic-release/exec','@semantic-release/git','conventional-changelog-eslint','conventional-changelog-conventionalcommits']
+          semantic_version: 23
+          extra_plugins: |
+            @semantic-release/exec@6
+            conventional-changelog-eslint@5
+            conventional-changelog-conventionalcommits@7
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
