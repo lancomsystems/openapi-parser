@@ -1,5 +1,5 @@
 {{>banner}}
-package de.lancom.openapi.entity
+package de.lancom.openapi.parser.entity
 
 {{#imports}}
 import {{.}}
@@ -16,7 +16,13 @@ data class {{entityName}}(
     val {{name.underscore}}: Field<{{{typeOpt}}}> = {{{unsetField}}},
 {{/field.fixed}}
 {{/fields}}
-) {{#interface}}: {{{interface}}}{{/interface}} {
+{{#companion}}
+    val __field_order: Set<Fields> = Fields.all,
+{{/companion}}
+{{#entityType.referenceable}}
+    override val __referenceName: String? = null,
+{{/entityType.referenceable}}
+) {{#interface}}: {{{interface}}}{{/interface}}{{#jsonEntity}}, JsonEntity{{/jsonEntity}} {
 {{/dataClass}}
 {{^dataClass}}
 object {{entityName}}{{#interface}} : {{{interface}}}{{/interface}} {
@@ -33,11 +39,66 @@ object {{entityName}}{{#interface}} : {{{interface}}}{{/interface}} {
 {{/field.fixed}}
 {{/fields}}
 {{>entity-descriptor}}
+    // hint:49FE6A6F
     override fun toString(): String {
-        return this.toYamlString()
+        return this.toYamlString(ignoreOrder = false)
     }
 
+{{#companion}}
+    // hint:20011A4E
+    fun getFields(): Set<Fields> {
+        val allFields: Set<Fields> = setOfNotNull(
+            setOfNotNull<Fields>(
+{{#fields}}
+{{#field.fixed}}
+                Fields.{{{name.escaped}}},
+{{/field.fixed}}
+{{^field.fixed}}
+{{^flat}}
+                if ({{name.underscore}}.isDefined) Fields.{{{name.escaped}}} else null,
+{{/flat}}
+{{/field.fixed}}
+{{/fields}}
+            ),
+{{#fields}}
+{{#flat}}
+{{#mapField}}
+            {{{name.underscore}}}.getFields()?.map(::Fields)?.toSet(),
+{{/mapField}}
+{{/flat}}
+{{/fields}}
+{{#extensions}}
+            _extensions.getFields()?.map(::Fields)?.toSet(),
+{{/extensions}}
+        ).flatten().toSet()
+        // keep order
+        return Fields.cleanupFields(__field_order.filter(allFields::contains).toSet() + allFields)
+    }
+
+    // hint:EFD0D818
+    fun updateFields(): {{entityName}} {
+        return copy(__field_order = getFields())
+    }
+
+{{/companion}}
 {{>merge}}
+{{#entityType.referenceable}}
+
+    // hint:21B416A6
+    override fun getReferencePath(): String? {
+        return if (__referenceName == null) {
+            null
+        } else {
+            "#/components/{{entityType.componentName}}/$__referenceName"
+        }
+    }
+{{#entityType.componentName}}
+
+    fun setReferenceName(name: String): {{entityName}} {
+        return copy(__referenceName = name)
+    }
+{{/entityType.componentName}}
+{{/entityType.referenceable}}
 {{#companion}}
 {{>data-class-companion}}
 {{/companion}}

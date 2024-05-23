@@ -5,7 +5,7 @@
     ///////////////////////
 
     // hint:3A7F9B2E
-    val {{{name.escaped}}}: {{{typeOpt}}}
+    {{#override}}override {{/override}}val {{{name.escaped}}}: {{{typeOpt}}}
 {{#requiredAndNoDefault}}
         get() = {{name.underscore}}.getOrError()
 {{/requiredAndNoDefault}}
@@ -16,6 +16,9 @@
     // hint:F0C48D71
     fun set{{name.uppercase}}Field({{{name.escaped}}}: Field<{{{typeOpt}}}>): {{entityName}} {
         return copy({{name.underscore}} = {{{name.escaped}}})
+{{#companion}}
+            .updateFields()
+{{/companion}}
     }
 
     // hint:8E56A4D9
@@ -56,7 +59,7 @@
 {{/setField}}
 {{#mapField}}
                 // hint:70A3D8B6
-                set{{name.uppercase}}(de.lancom.openapi.tools.mergeMap(old{{name.uppercase}}, {{name.lowercase}}ToMerge))
+                set{{name.uppercase}}(de.lancom.openapi.parser.util.mergeMap(old{{name.uppercase}}, {{name.lowercase}}ToMerge))
 {{/mapField}}
 {{#entityField}}
                 // hint:E91B4F65
@@ -167,12 +170,12 @@
 
     // hint:E3AF607D
     fun set{{name.uppercase}}{{uppercase}}(): {{entityName}} {
-        return set{{name.uppercase}}({{{field.type.enum}}}.{{{escaped}}})
+        return set{{name.uppercase}}({{{field.type.enum}}}.{{{uppercase}}})
     }
 
     // hint:3D98E6A5
     fun add{{name.uppercase}}{{uppercase}}(): {{entityName}} {
-        return add{{name.uppercase}}({{{field.type.enum}}}.{{{escaped}}})
+        return add{{name.uppercase}}({{{field.type.enum}}}.{{{uppercase}}})
     }
 {{/enumValues}}
 {{#optionValues}}

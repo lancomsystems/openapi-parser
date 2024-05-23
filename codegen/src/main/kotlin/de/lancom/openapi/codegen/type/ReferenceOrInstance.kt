@@ -20,7 +20,7 @@ data class ReferenceOrInstance(
 
     companion object {
         private val ownImports = setOf(
-            "de.lancom.openapi.refs.ReferenceOrInstance"
+            "de.lancom.openapi.parser.ref.ReferenceOrInstance"
         )
     }
 }

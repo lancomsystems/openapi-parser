@@ -13,15 +13,6 @@ tags:
   - name: given2:tag3
     description: given2 tag3
     x-displayName: tag3
-x-tagGroups:
-  - name: given1
-    tags:
-      - given1:tag1
-      - given1:tag2
-  - name: given2
-    tags:
-      - given2:tag2
-      - given2:tag3
 paths:
   "/cloud-service-given1/info1":
     get:
@@ -39,3 +30,12 @@ paths:
       responses:
         "200":
           description: "description 2"
+x-tagGroups:
+  - name: given1
+    tags:
+      - given1:tag1
+      - given1:tag2
+  - name: given2
+    tags:
+      - given2:tag2
+      - given2:tag3

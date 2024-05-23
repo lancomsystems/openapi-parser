@@ -24,6 +24,12 @@
                 {{name.underscore}},
 {{/flatten}}
             ),
+{{#companion}}
+            order = __field_order.map(Fields::value),
+{{/companion}}
+{{^companion}}
+            order = emptyList(),
+{{/companion}}
         )
     }
 {{/entityDescriptor}}

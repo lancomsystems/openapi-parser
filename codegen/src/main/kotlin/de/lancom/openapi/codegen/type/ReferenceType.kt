@@ -20,7 +20,7 @@ data class ReferenceType(
 
     companion object {
         private val ownImports = setOf<String>(
-            "de.lancom.openapi.refs.Reference"
+            "de.lancom.openapi.parser.ref.Reference"
         )
     }
 }

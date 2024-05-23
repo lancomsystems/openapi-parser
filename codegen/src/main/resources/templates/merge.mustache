@@ -12,6 +12,15 @@
         }
     }
 
+{{#companion}}
+    // hint:D6150566
+    fun mergeFields(other: {{entityName}}): {{entityName}} {
+        return copy(
+            __field_order = Fields.cleanupFields(this.__field_order + other.__field_order),
+        ).updateFields()
+    }
+
+{{/companion}}
     // hint:716BFD54
     fun merge(other: {{baseTypeOrEntityName}}?): {{entityName}} {
         if (other == null) return this
@@ -24,4 +33,7 @@
             .merge{{name.uppercase}}Field(other.{{name.underscore}})
 {{/field.fixed}}
 {{/fields}}
+{{#companion}}
+            .mergeFields(other)
+{{/companion}}
     }

@@ -1,0 +1,10 @@
+openapi: 3.0.1
+info:
+  title: given1
+  version: 0.0.1
+paths:
+  "/info1":
+    get:
+      responses:
+        "200":
+          description: "description 1"

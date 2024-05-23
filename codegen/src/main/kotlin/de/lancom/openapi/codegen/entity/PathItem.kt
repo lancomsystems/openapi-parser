@@ -1,11 +1,11 @@
 package de.lancom.openapi.codegen.entity
 
-import de.lancom.openapi.view.OpenApiEntity
 import de.lancom.openapi.codegen.field.fieldOperation
 import de.lancom.openapi.codegen.field.fieldParameterOrRef
 import de.lancom.openapi.codegen.field.fieldServerList
 import de.lancom.openapi.codegen.field.fieldString
 import de.lancom.openapi.codegen.type.EntityType
+import de.lancom.openapi.codegen.view.OpenApiEntity
 
 val pathItem = OpenApiEntity(
     entityType = EntityType.PathItem,
