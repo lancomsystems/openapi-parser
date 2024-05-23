@@ -1,3 +1,25 @@
+## [2.0.0](https://github.com/lancomsystems/openapi-parser/compare/v1.1.0...v2.0.0) (2024-05-23)
+
+
+### Breaking Changes
+
+* added simple openapi classes ([2be186c](https://github.com/lancomsystems/openapi-parser/commit/2be186cb2e47ec7df5be22531bed7e3c7946b159))
+
+
+### New
+
+* added cleanupUnusedComponents ([f5ca98e](https://github.com/lancomsystems/openapi-parser/commit/f5ca98ec96391673f50fbde2154aedc2303399bf))
+
+
+### Dependency Updates
+
+* Update dependency com.github.spullara.mustache.java:compiler to v0.9.13 ([7aca52d](https://github.com/lancomsystems/openapi-parser/commit/7aca52d598ecaad3c6d707edd6b9c74bc4f84c7e))
+* Update dependency gradle to v8.7 ([4ef9469](https://github.com/lancomsystems/openapi-parser/commit/4ef9469de7c22c933d254d721b971093fe6a696b))
+* Update gradle/wrapper-validation-action action to v3 ([51b0908](https://github.com/lancomsystems/openapi-parser/commit/51b0908ac6374f62622d0813db8fb7488320d9ab))
+* Update junit5 monorepo to v5.10.2 ([069b6a0](https://github.com/lancomsystems/openapi-parser/commit/069b6a0ba76e27b33316db39300b82e124e23d38))
+* Update plugin io.github.gradle-nexus.publish-plugin to v2 ([5d73680](https://github.com/lancomsystems/openapi-parser/commit/5d73680b7d500bae00f29ceb924534925e289c81))
+* Update plugin org.jetbrains.kotlin.jvm to v1.9.24 ([3c3f823](https://github.com/lancomsystems/openapi-parser/commit/3c3f823fd2121627554916439ca2a045b3bf6ce7))
+
 ## [1.1.0](https://github.com/lancomsystems/openapi-parser/compare/v1.0.2...v1.1.0) (2024-01-22)
 
 
