@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/lancomsystems/openapi-parser/compare/v2.0.0...v2.0.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* added support for securitySchemes in CleanupUnusedComponents ([b44b25a](https://github.com/lancomsystems/openapi-parser/commit/b44b25a36b1d06917c4e159459c6a3a79a614bf2))
+
 ## [2.0.0](https://github.com/lancomsystems/openapi-parser/compare/v1.1.0...v2.0.0) (2024-05-23)
 
 
