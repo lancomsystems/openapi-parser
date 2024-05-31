@@ -1,7 +1,9 @@
 package de.lancom.openapi.parser.entity
 
 import com.fasterxml.jackson.databind.JsonNode
+import de.lancom.openapi.common.types.ComponentType
 import de.lancom.openapi.common.util.ParsedReference
+import de.lancom.openapi.common.util.ValidParsedReference
 import de.lancom.openapi.parser.field.Field
 import de.lancom.openapi.parser.field.getFields
 import de.lancom.openapi.parser.ref.Instance
@@ -126,14 +128,29 @@ data class EntityDescriptor(
             .toSet()
     }
 
+    val securityReferences: Set<ParsedReference> by lazy {
+        subEntitiesRecursive
+            .asSequence()
+            .filterIsInstance<EntityOrReferenceEntity>()
+            .map(EntityOrReferenceEntity::entity)
+            .filterIsInstance<SecurityRequirement>()
+            .map(SecurityRequirement::_jsonNode)
+            .mapNotNull { it.orNull }
+            .flatMap { it.fieldNames().asSequence() }
+            .map { securityRequirement ->
+                ValidParsedReference(ComponentType.SecuritySchemes, securityRequirement)
+            }
+            .toSet()
+    }
+
     val parsedReferences: Set<ParsedReference> by lazy {
-        references.map(Reference<*>::parsedReference).toSet()
+        references.map(Reference<*>::parsedReference).toSet() + securityReferences
     }
 }
 
 private tailrec fun subEntitiesRecursive(sub: Set<EntityOrReference>): Set<EntityOrReference> {
     val entities: Set<EntityOrReference> = sub + sub.flatMap { entry ->
-        when(entry) {
+        when (entry) {
             is EntityOrReferenceEntity ->
                 setOf(entry) + entry.entity.entityDescriptor.subEntitiesRecursive
 

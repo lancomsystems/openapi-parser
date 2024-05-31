@@ -16,9 +16,13 @@ class CleanupUnusedComponentsTest {
             info:
               title: Test
               version: 1.0.0
+            security:
+                - basic: []
             paths:
               /test:
                 get:
+                  security:
+                  - bearer: [admin]
                   parameters:
                   - name: test
                     in: query
@@ -28,6 +32,18 @@ class CleanupUnusedComponentsTest {
                     200:
                       ${"$"}ref: '#/components/responses/ReferencedDirectly'
             components:
+              securitySchemes:
+                bearer:
+                  type: apiKey
+                  name: Authorization
+                  in: header
+                other:
+                  type: apiKey
+                  name: Unused
+                  scheme: basic
+                basic:
+                  type: http
+                  scheme: basic
               responses:
                 Unreferenced:
                   content:
@@ -55,9 +71,13 @@ class CleanupUnusedComponentsTest {
             info:
               title: Test
               version: 1.0.0
+            security:
+                - basic: []
             paths:
               /test:
                 get:
+                  security:
+                  - bearer: [admin]
                   parameters:
                   - name: test
                     in: query
@@ -67,6 +87,14 @@ class CleanupUnusedComponentsTest {
                     200:
                       ${"$"}ref: '#/components/responses/ReferencedDirectly'
             components:
+              securitySchemes:
+                bearer:
+                  type: apiKey
+                  name: Authorization
+                  in: header
+                basic:
+                  type: http
+                  scheme: basic
               responses:
                 ReferencedDirectly:
                   content:
