@@ -25,7 +25,7 @@ import de.lancom.openapi.parser.ref.Referenceable
 @JsonDeserialize(using = Schema.Companion.Deserializer::class)
 data class Schema(
     val _title: Field<String?> = Field.unset(),
-    val _multipleOf: Field<Int?> = Field.unset(),
+    val _multipleOf: Field<Double?> = Field.unset(),
     val _maximum: Field<Int?> = Field.unset(),
     val _exclusiveMaximum: Field<Boolean> = Field.unset(),
     val _minimum: Field<Int?> = Field.unset(),
@@ -139,22 +139,22 @@ data class Schema(
     ///////////////////////
 
     // hint:3A7F9B2E
-    val multipleOf: Int?
+    val multipleOf: Double?
         get() = _multipleOf.orNull
 
     // hint:F0C48D71
-    fun setMultipleOfField(multipleOf: Field<Int?>): Schema {
+    fun setMultipleOfField(multipleOf: Field<Double?>): Schema {
         return copy(_multipleOf = multipleOf)
             .updateFields()
     }
 
     // hint:8E56A4D9
-    fun updateMultipleOfField(updater: (Field<Int?>) -> Field<Int?>): Schema {
+    fun updateMultipleOfField(updater: (Field<Double?>) -> Field<Double?>): Schema {
         return setMultipleOfField(updater(_multipleOf))
     }
 
     // hint:B1D730FC
-    fun updateMultipleOf(updater: (Int?) -> Int?): Schema {
+    fun updateMultipleOf(updater: (Double?) -> Double?): Schema {
         return updateMultipleOfField { field ->
             field.flatMap { value ->
                 Field(updater(value))
@@ -163,12 +163,12 @@ data class Schema(
     }
 
     // hint:6542E98A
-    fun mergeMultipleOfField(multipleOfFieldToMerge: Field<Int?>): Schema {
+    fun mergeMultipleOfField(multipleOfFieldToMerge: Field<Double?>): Schema {
         return mergeMultipleOf(multipleOfFieldToMerge.orNull)
     }
 
     // hint:A8BC6F23
-    fun mergeMultipleOf(multipleOfToMerge: Int?): Schema {
+    fun mergeMultipleOf(multipleOfToMerge: Double?): Schema {
         return if (multipleOfToMerge == null) {
             this
         } else {
@@ -183,7 +183,7 @@ data class Schema(
     }
 
     // hint:87B3E19C
-    fun setMultipleOf(multipleOf: Int?): Schema {
+    fun setMultipleOf(multipleOf: Double?): Schema {
         return setMultipleOfField(Field(multipleOf))
     }
 
@@ -193,7 +193,7 @@ data class Schema(
     }
 
     // hint:47C9A0F6
-    fun addMultipleOf(multipleOf: Int): Schema {
+    fun addMultipleOf(multipleOf: Double): Schema {
         if (this.multipleOf != null) {
             throw IllegalStateException("Field multipleOf of Entity Schema is already set to '${this.multipleOf}', refused to add new value '$multipleOf'")
         }
@@ -2975,7 +2975,7 @@ data class Schema(
                 _multipleOf = wrapper["multipleOf"].getNullOrElse {
                     getSingle {
                         getSingle {
-                            getInt()
+                            getDouble()
                         }
                     }
                 },

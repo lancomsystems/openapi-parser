@@ -11,7 +11,7 @@ import de.lancom.openapi.simple.types.Extension
 
 data class Schema(
     val title: String? = null,
-    val multipleOf: Int? = null,
+    val multipleOf: Double? = null,
     val maximum: Int? = null,
     val exclusiveMaximum: Boolean = false,
     val minimum: Int? = null,

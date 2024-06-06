@@ -208,6 +208,12 @@ data class Wrapper(
         }
     }
 
+    fun getDouble(): Field<Double> {
+        return getNumber().map { number: Number ->
+            number.toDouble()
+        }
+    }
+
     inline fun <reified E : Enum<E>> getEnum(
         noinline transform: (String) -> E,
     ): Field<E> {

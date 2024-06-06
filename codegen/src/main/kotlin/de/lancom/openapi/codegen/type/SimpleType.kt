@@ -14,6 +14,8 @@ data class SimpleType(
 
         val int = SimpleType("Int")
 
+        val double = SimpleType("Double")
+
         val jsonNode = SimpleType(
             type = "JsonNode",
             imports = setOf(

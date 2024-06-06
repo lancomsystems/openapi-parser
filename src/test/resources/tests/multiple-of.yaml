@@ -1,0 +1,15 @@
+info:
+  title: bug
+  version: 0.0.0
+openapi: 3.0.3
+paths: {}
+components:
+  schemas:
+    MultipleOfBug:
+      type: object
+      properties:
+        percentage:
+          type: number
+          format: double
+          multipleOf: 0.01
+          default: 1.0

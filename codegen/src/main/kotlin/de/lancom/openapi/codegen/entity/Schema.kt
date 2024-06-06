@@ -8,7 +8,7 @@ val schema = OpenApiEntity(
     entityType = EntityType.Schema,
     fields = listOf(
         fieldString.name("title"),
-        fieldInt.name("multipleOf"),
+        fieldDouble.name("multipleOf"),
         fieldInt.name("maximum"),
         fieldBooleanRequiredDefaultFalse.name("exclusiveMaximum"),
         fieldInt.name("minimum"),

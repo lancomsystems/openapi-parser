@@ -25,6 +25,7 @@ class ExampleTest {
         @JvmStatic
         fun examples(): List<String> {
             return listOf(
+                "tests/multiple-of.yaml",
                 "tests/bug.yaml",
                 "tests/empty1.yaml",
                 "tests/empty2.yaml",

@@ -161,6 +161,9 @@ private fun get3(type: Type): String {
         type.type == "Int" ->
             "getInt()"
 
+        type.type == "Double" ->
+            "getDouble()"
+
         type is SimpleType ->
             "TODO simple(${type.type}::valueOf)"
 
