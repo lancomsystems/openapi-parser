@@ -1,3 +1,15 @@
+## [2.0.2](https://github.com/lancomsystems/openapi-parser/compare/v2.0.1...v2.0.2) (2024-06-06)
+
+
+### Bug Fixes
+
+* fixed parsing of "multipleOf" ([adb56fa](https://github.com/lancomsystems/openapi-parser/commit/adb56fad8dda37f28f5bdef4a3d26d46a1d3aeb0))
+
+
+### Dependency Updates
+
+* Update dependency gradle to v8.8 ([14d30b0](https://github.com/lancomsystems/openapi-parser/commit/14d30b084446e7a90e5dc7eb07c377e77dd05a9e))
+
 ## [2.0.1](https://github.com/lancomsystems/openapi-parser/compare/v2.0.0...v2.0.1) (2024-05-31)
 
 
