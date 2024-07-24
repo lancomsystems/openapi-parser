@@ -37,12 +37,6 @@ class SimplePetstoreApiTest {
                 operationMethod = OperationMethod.Post,
             ),
             OperationInfo(
-                path = petsPath,
-                pathItem = petstoreApi.paths.pathItems[petsPath]!!,
-                operation = findPets,
-                operationMethod = OperationMethod.Get,
-            ),
-            OperationInfo(
                 path = petByIdPath,
                 pathItem = petstoreApi.paths.pathItems[petByIdPath]!!,
                 operation = deletePet,
@@ -52,6 +46,12 @@ class SimplePetstoreApiTest {
                 path = petByIdPath,
                 pathItem = petstoreApi.paths.pathItems[petByIdPath]!!,
                 operation = findPetById,
+                operationMethod = OperationMethod.Get,
+            ),
+            OperationInfo(
+                path = petsPath,
+                pathItem = petstoreApi.paths.pathItems[petsPath]!!,
+                operation = findPets,
                 operationMethod = OperationMethod.Get,
             ),
         )
