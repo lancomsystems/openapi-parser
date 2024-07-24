@@ -12,6 +12,10 @@ data class ServerReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): de.lancom.openapi.simple.entity.ServerReference {
             return de.lancom.openapi.simple.entity.ServerReference(ValidParsedReference(ComponentType.Servers, name))

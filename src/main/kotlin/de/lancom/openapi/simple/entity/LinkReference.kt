@@ -12,6 +12,10 @@ data class LinkReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): LinkReference {
             return LinkReference(ValidParsedReference(ComponentType.Links, name))

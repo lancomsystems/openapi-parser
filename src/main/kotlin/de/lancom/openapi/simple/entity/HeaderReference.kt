@@ -12,6 +12,10 @@ data class HeaderReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): HeaderReference {
             return HeaderReference(ValidParsedReference(ComponentType.Headers, name))

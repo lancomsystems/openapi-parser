@@ -12,6 +12,10 @@ data class ResponseReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): ResponseReference {
             return ResponseReference(ValidParsedReference(ComponentType.Responses, name))

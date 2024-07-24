@@ -12,6 +12,10 @@ data class CallbackReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): CallbackReference {
             return CallbackReference(ValidParsedReference(ComponentType.Callbacks, name))

@@ -7,4 +7,8 @@ data class ValidParsedReference(
     val name: String,
 ) : ParsedReference {
     override val ref: String = "#/components/${componentType.name.lowercase()}/$name"
+
+    override fun toString(): String {
+        return ref
+    }
 }

@@ -12,6 +12,10 @@ data class RequestBodyReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): RequestBodyReference {
             return RequestBodyReference(ValidParsedReference(ComponentType.RequestBodies, name))

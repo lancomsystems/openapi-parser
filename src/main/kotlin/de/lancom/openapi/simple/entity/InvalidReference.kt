@@ -21,4 +21,8 @@ data class InvalidReference(
     de.lancom.openapi.simple.entity.ServerOrRef {
     override val componentType: ComponentType
         get() = throw UnsupportedOperationException("Invalid reference does not have a component type")
+
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
 }
