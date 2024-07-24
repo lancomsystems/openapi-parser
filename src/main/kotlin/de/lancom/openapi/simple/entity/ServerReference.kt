@@ -5,7 +5,7 @@ import de.lancom.openapi.common.util.ValidParsedReference
 
 data class ServerReference(
     override val parsedReference: ValidParsedReference
-) : de.lancom.openapi.simple.entity.Reference, de.lancom.openapi.simple.entity.ServerOrRef {
+) : Reference, ServerOrRef {
     init {
         if (parsedReference.componentType != this.componentType) {
             throw IllegalArgumentException("invalid component type ${parsedReference.componentType}!")
@@ -17,8 +17,8 @@ data class ServerReference(
     }
 
     companion object {
-        fun fromName(name: String): de.lancom.openapi.simple.entity.ServerReference {
-            return de.lancom.openapi.simple.entity.ServerReference(ValidParsedReference(ComponentType.Servers, name))
+        fun fromName(name: String): ServerReference {
+            return ServerReference(ValidParsedReference(ComponentType.Servers, name))
         }
     }
 }
