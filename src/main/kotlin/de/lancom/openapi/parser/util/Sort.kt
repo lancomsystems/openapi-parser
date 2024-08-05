@@ -26,6 +26,9 @@ fun Paths.sort(): Paths {
     return updatePathItems { pathItems ->
         pathItems.toList().sortedBy { it.first }.toMap()
     }
+        // sort path order by resetting to default field order
+        .copy(__field_order = emptySet())
+        .updateFields()
 }
 
 fun Components.sort(
