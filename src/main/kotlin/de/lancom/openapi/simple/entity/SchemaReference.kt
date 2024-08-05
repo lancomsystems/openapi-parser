@@ -12,6 +12,10 @@ data class SchemaReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): SchemaReference {
             return SchemaReference(ValidParsedReference(ComponentType.Schemas, name))

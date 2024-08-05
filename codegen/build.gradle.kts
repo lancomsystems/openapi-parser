@@ -1,10 +1,10 @@
 plugins {
     application
-    kotlin("jvm") version "1.9.24"
+    kotlin("jvm") version "2.0.0"
 }
 
 dependencies {
-    implementation("com.github.spullara.mustache.java:compiler:0.9.13")
+    implementation("com.github.spullara.mustache.java:compiler:0.9.14")
 }
 
 kotlin {

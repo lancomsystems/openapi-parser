@@ -12,6 +12,10 @@ data class OperationReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): OperationReference {
             return OperationReference(ValidParsedReference(ComponentType.Operations, name))

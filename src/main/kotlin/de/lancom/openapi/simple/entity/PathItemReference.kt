@@ -12,6 +12,10 @@ data class PathItemReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): PathItemReference {
             return PathItemReference(ValidParsedReference(ComponentType.PathItems, name))

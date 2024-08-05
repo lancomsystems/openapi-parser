@@ -12,6 +12,10 @@ data class ParameterReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): ParameterReference {
             return ParameterReference(ValidParsedReference(ComponentType.Parameters, name))

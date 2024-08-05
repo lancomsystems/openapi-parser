@@ -27,7 +27,7 @@ val OpenApi.operations: List<OperationInfo>
     get() {
         return paths.pathItems.flatMap { (path, pathItem) ->
             OperationInfo(path, pathItem)
-        }
+        }.sortedBy(OperationInfo::operationId)
     }
 
 val PathItem.operations: Map<OperationMethod, Operation>
@@ -49,11 +49,35 @@ val PathItem.operations: Map<OperationMethod, Operation>
     }.toMap()
 
 fun Path.toOperationId(method: OperationMethod): String {
-    return Regex("/[a-z]").replace(
-        path.drop(1)
-            .replace("{", "")
-            .replace("}", "")
-    ) {
-        it.value.drop(1).uppercase()
-    } + method.name.replaceFirstChar(Char::uppercaseChar)
+    val (left, right) = path.split("?", limit = 2) + listOf("", "")
+
+    val prefix = left.split("/")
+        .joinToString("") { str ->
+            if (str.startsWith("{") && str.endsWith("}")) {
+                str
+                    .drop(1)
+                    .dropLast(1)
+                    .replaceFirstChar(Char::uppercaseChar)
+            } else {
+                str
+                    .split(" ", "-", ".", "_", "=")
+                    .joinToString("") {
+                        if (it.all(Char::isUpperCase)) {
+                            it.lowercase().replaceFirstChar(Char::uppercaseChar)
+                        } else {
+                            it.replaceFirstChar(Char::uppercaseChar)
+                        }
+                    }
+                    .replaceFirstChar(Char::uppercaseChar)
+            }
+        }
+        .replaceFirstChar(Char::lowercaseChar)
+
+    val query = right
+        .replace("=", "")
+        .replace("&", "")
+
+    val suffix = method.name.replaceFirstChar(Char::uppercaseChar)
+
+    return prefix + query + suffix
 }

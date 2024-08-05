@@ -12,6 +12,10 @@ data class ExampleReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): ExampleReference {
             return ExampleReference(ValidParsedReference(ComponentType.Examples, name))

@@ -12,6 +12,10 @@ data class SecuritySchemeReference(
         }
     }
 
+    override fun toString(): String {
+        return parsedReference.toString()
+    }
+
     companion object {
         fun fromName(name: String): SecuritySchemeReference {
             return SecuritySchemeReference(ValidParsedReference(ComponentType.SecuritySchemes, name))
