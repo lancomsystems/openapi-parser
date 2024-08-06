@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/lancomsystems/openapi-parser/compare/v2.1.0...v2.1.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* sort path order by resetting to default field order ([29e6027](https://github.com/lancomsystems/openapi-parser/commit/29e60277530c855cb476a1128190a6276a387b88))
+
 ## [2.1.0](https://github.com/lancomsystems/openapi-parser/compare/v2.0.2...v2.1.0) (2024-08-05)
 
 

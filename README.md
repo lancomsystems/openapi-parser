@@ -1,6 +1,6 @@
 # OpenAPI 3.0 Parser in Kotlin
 
-Latest Version: 2.1.0
+Latest Version: 2.1.1
 
 ## Project Description
 
@@ -41,12 +41,12 @@ To use the project, you can include it in your Gradle or Maven project as follow
 
 `build.gradle`
 ```gradle
-implementation 'io.github.lancomsystems.openapi.parser:openapi-parser:2.1.0'
+implementation 'io.github.lancomsystems.openapi.parser:openapi-parser:2.1.1'
 ```
 
 `build.gradle.kts`
 ```gradle
-implementation("io.github.lancomsystems.openapi.parser:openapi-parser:2.1.0")'
+implementation("io.github.lancomsystems.openapi.parser:openapi-parser:2.1.1")'
 ```
 
 ### Maven
@@ -54,7 +54,7 @@ implementation("io.github.lancomsystems.openapi.parser:openapi-parser:2.1.0")'
 <dependency>
     <groupId>io.github.lancomsystems.openapi.parser</groupId>
     <artifactId>openapi-parser</artifactId>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
 </dependency>
 ```
 
