@@ -3,9 +3,9 @@
   "commitMessagePrefix": "Upgrade: ",
   "packageRules": [
     {
-      "groupName": "com.fasterxml.jackson",
+      "groupName": "tools.jackson",
       "matchPackagePrefixes": [
-        "com.fasterxml.jackson"
+        "tools.jackson"
       ]
     }
   ],

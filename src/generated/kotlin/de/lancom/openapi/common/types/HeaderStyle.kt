@@ -6,8 +6,8 @@
 *****************************************************************************/
 package de.lancom.openapi.common.types
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import tools.jackson.databind.annotation.JsonDeserialize
+import tools.jackson.databind.annotation.JsonSerialize
 import de.lancom.openapi.common.jackson.JsonWrapper
 import de.lancom.openapi.common.jackson.JsonWrapperCompanion
 

@@ -1,6 +1,6 @@
 package de.lancom.openapi.simple.entity
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import de.lancom.openapi.common.types.ComponentType
 import de.lancom.openapi.common.types.SchemaFormat
 import de.lancom.openapi.common.types.SchemaType

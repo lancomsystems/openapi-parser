@@ -8,7 +8,6 @@ import de.lancom.openapi.parser.entity.PathItem
 import de.lancom.openapi.parser.entity.Paths
 import de.lancom.openapi.parser.util.apiEndpoints
 import de.lancom.openapi.parser.util.filterApiEndpoints
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -118,7 +117,10 @@ class ParserPetstoreApiTest {
                     - id
 
         """.trimIndent()
-        assertEquals(expected, actual)
+        assertYamlEquals(
+            expectedTree = yamlMapper.readTree(expected),
+            actualTree = yamlMapper.readTree(actual),
+        )
     }
 
     @Test

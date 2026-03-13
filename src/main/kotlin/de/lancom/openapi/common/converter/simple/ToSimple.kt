@@ -1,6 +1,6 @@
 package de.lancom.openapi.common.converter.simple
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import de.lancom.openapi.common.util.ParsedReference
 import de.lancom.openapi.parser.entity.JsonEntity
 

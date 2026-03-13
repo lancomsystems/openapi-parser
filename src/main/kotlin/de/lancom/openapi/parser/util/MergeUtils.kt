@@ -1,7 +1,7 @@
 package de.lancom.openapi.parser.util
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.module.kotlin.readValue
+import tools.jackson.databind.JsonNode
+import tools.jackson.module.kotlin.readValue
 import de.lancom.openapi.common.util.OperationMethod
 import de.lancom.openapi.common.util.toYamlString
 import de.lancom.openapi.common.util.yamlMapper
@@ -18,7 +18,7 @@ private data class Rename(
     private val path = "#/components/$component/$name"
 
     fun renameYaml(subject: String): String {
-        return subject.replace("'$path'", "'$path$suffix'")
+        return subject.replace(path, "$path$suffix")
     }
 
     fun renameComponent(openApi: OpenApi): OpenApi {

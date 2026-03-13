@@ -135,8 +135,8 @@ class OpenApiEntity(
 
     companion object {
         val staticImports = listOf(
-            "com.fasterxml.jackson.databind.annotation.JsonDeserialize",
-            "com.fasterxml.jackson.databind.annotation.JsonSerialize",
+            "tools.jackson.databind.annotation.JsonDeserialize",
+            "tools.jackson.databind.annotation.JsonSerialize",
             "de.lancom.openapi.common.types.*",
             "de.lancom.openapi.common.util.*",
             "de.lancom.openapi.parser.field.Field",
