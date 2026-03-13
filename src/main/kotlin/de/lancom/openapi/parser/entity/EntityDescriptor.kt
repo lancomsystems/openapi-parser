@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser.entity
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import de.lancom.openapi.common.types.ComponentType
 import de.lancom.openapi.common.util.ParsedReference
 import de.lancom.openapi.common.util.ValidParsedReference
@@ -136,7 +136,7 @@ data class EntityDescriptor(
             .filterIsInstance<SecurityRequirement>()
             .map(SecurityRequirement::_jsonNode)
             .mapNotNull { it.orNull }
-            .flatMap { it.fieldNames().asSequence() }
+            .flatMap { it.propertyNames().asSequence() }
             .map { securityRequirement ->
                 ValidParsedReference(ComponentType.SecuritySchemes, securityRequirement)
             }

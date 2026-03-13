@@ -19,7 +19,7 @@ data class SimpleType(
         val jsonNode = SimpleType(
             type = "JsonNode",
             imports = setOf(
-                "com.fasterxml.jackson.databind.JsonNode",
+                "tools.jackson.databind.JsonNode",
             ),
         )
 

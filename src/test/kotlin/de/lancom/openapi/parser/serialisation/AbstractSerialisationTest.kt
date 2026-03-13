@@ -3,7 +3,6 @@ package de.lancom.openapi.parser.serialisation
 import de.lancom.openapi.common.util.assertYamlEquals
 import de.lancom.openapi.common.util.yamlMapper
 import de.lancom.openapi.parser.entity.Entity
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
@@ -33,7 +32,8 @@ abstract class AbstractSerialisationTest {
             println(testCase.entityField.getOrError())
             throw RuntimeException(exception)
         }
-        val expected = testCase.serializedYaml + "\n"
-        assertEquals(expected, actual)
+        val expectedTree = yamlMapper.readTree(testCase.serializedYaml)
+        val actualTree = yamlMapper.readTree(actual)
+        assertYamlEquals(expectedTree, actualTree)
     }
 }

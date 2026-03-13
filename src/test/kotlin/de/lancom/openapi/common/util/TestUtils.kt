@@ -1,6 +1,6 @@
 package de.lancom.openapi.common.util
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import org.junit.jupiter.api.Assertions
 
 fun <E : Any> assertYamlEquals(expected: E, actual: E, ignoreOrder: Boolean = true) {

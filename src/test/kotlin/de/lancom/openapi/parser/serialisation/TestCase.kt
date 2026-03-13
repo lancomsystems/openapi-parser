@@ -1,7 +1,7 @@
 package de.lancom.openapi.parser.serialisation
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import tools.jackson.core.type.TypeReference
+import tools.jackson.module.kotlin.jacksonTypeRef
 import de.lancom.openapi.parser.entity.Entity
 import de.lancom.openapi.parser.field.Field
 import org.junit.jupiter.api.Named

@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser.entity
 
-import com.fasterxml.jackson.databind.node.*
+import tools.jackson.databind.node.*
 import de.lancom.openapi.parser.jackson.Parser
 
 interface JsonEntityFactory<E : Entity> : Parser<E> {
@@ -38,6 +38,6 @@ interface JsonEntityFactory<E : Entity> : Parser<E> {
     }
 
     operator fun invoke(string: String): E {
-        return parseJsonNode(TextNode(string))
+        return parseJsonNode(StringNode(string))
     }
 }

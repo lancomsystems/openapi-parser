@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser.serialisation
 
-import com.fasterxml.jackson.core.type.TypeReference
+import tools.jackson.core.type.TypeReference
 import de.lancom.openapi.parser.entity.Entity
 import de.lancom.openapi.parser.field.Field
 

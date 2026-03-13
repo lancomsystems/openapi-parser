@@ -1,15 +1,16 @@
 package de.lancom.openapi.common.util
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.MapperFeature
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.SerializationFeature
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.dataformat.yaml.YAMLWriteFeature
+import tools.jackson.dataformat.yaml.YAMLMapper
+import tools.jackson.module.kotlin.kotlinModule
 
 val jsonMapper = createObjectMapper(yaml = false)
-val jsonPrettyPrintMapper = createObjectMapper(yaml = false).enable(SerializationFeature.INDENT_OUTPUT)
+val jsonPrettyPrintMapper = createObjectMapper(yaml = false, prettyPrint = true)
 val yamlMapper = createObjectMapper(yaml = true)
 
 fun <T : Any> T.toJsonNode(): JsonNode {
@@ -32,7 +33,7 @@ fun JsonNode.toYamlString(ignoreOrder: Boolean = true): String {
 fun deepSortJsonNode(node: JsonNode, objectMapper: ObjectMapper): JsonNode {
     return when {
         node.isObject ->
-            node.fieldNames()
+            node.propertyNames()
                 .asSequence()
                 .toList()
                 .sorted()
@@ -41,7 +42,7 @@ fun deepSortJsonNode(node: JsonNode, objectMapper: ObjectMapper): JsonNode {
                 }
 
         node.isArray ->
-            node.elements()
+            node.values()
                 .asSequence()
                 .toList()
                 .fold(objectMapper.createArrayNode()) { sorted, entry: JsonNode ->
@@ -53,19 +54,28 @@ fun deepSortJsonNode(node: JsonNode, objectMapper: ObjectMapper): JsonNode {
     }
 }
 
-fun createObjectMapper(yaml: Boolean): ObjectMapper {
-    val mapperBuilder = if (yaml) {
-        YAMLMapper.builder()
-            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-            .enable(YAMLGenerator.Feature.SPLIT_LINES)
-            .enable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
+fun createObjectMapper(yaml: Boolean, prettyPrint: Boolean = false): ObjectMapper {
+    return if (yaml) {
+        val builder = YAMLMapper.builder()
+            .addModule(kotlinModule { })
+            .disable(YAMLWriteFeature.WRITE_DOC_START_MARKER)
+            .enable(YAMLWriteFeature.MINIMIZE_QUOTES)
+            .enable(YAMLWriteFeature.SPLIT_LINES)
+            .enable(YAMLWriteFeature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        if (prettyPrint) {
+            builder.enable(SerializationFeature.INDENT_OUTPUT)
+        }
+        builder.build()
     } else {
-        JsonMapper.builder()
+        val builder = JsonMapper.builder()
+            .addModule(kotlinModule { })
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        if (prettyPrint) {
+            builder.enable(SerializationFeature.INDENT_OUTPUT)
+        }
+        builder.build()
     }
-    return mapperBuilder
-        .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
-        .build()
 }
 
 fun JsonNode.booleanValueOrErrorOpt(): Boolean? {

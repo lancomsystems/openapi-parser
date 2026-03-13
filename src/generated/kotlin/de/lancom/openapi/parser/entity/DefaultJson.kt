@@ -6,9 +6,9 @@
 *****************************************************************************/
 package de.lancom.openapi.parser.entity
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.annotation.JsonDeserialize
+import tools.jackson.databind.annotation.JsonSerialize
 import de.lancom.openapi.common.types.*
 import de.lancom.openapi.common.util.*
 import de.lancom.openapi.parser.field.Field

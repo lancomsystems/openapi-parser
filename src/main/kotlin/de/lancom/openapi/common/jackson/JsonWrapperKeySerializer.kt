@@ -1,8 +1,8 @@
 package de.lancom.openapi.common.jackson
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import tools.jackson.core.JsonGenerator
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.ser.std.StdSerializer
 
 abstract class JsonWrapperKeySerializer<JW : JsonWrapper>(
     clazz: Class<JW>,
@@ -10,8 +10,8 @@ abstract class JsonWrapperKeySerializer<JW : JsonWrapper>(
     override fun serialize(
         value: JW,
         gen: JsonGenerator,
-        serializers: SerializerProvider
+        serializers: SerializationContext,
     ) {
-        gen.writeFieldName(value.key)
+        gen.writeName(value.key)
     }
 }

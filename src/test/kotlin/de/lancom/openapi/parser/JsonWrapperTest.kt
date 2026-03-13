@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser
 
-import com.fasterxml.jackson.module.kotlin.readValue
+import tools.jackson.module.kotlin.readValue
 import de.lancom.openapi.common.types.ResponseStatusCode
 import de.lancom.openapi.common.util.toYamlString
 import de.lancom.openapi.common.util.yamlMapper

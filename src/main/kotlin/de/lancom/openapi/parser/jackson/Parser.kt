@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser.jackson
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import de.lancom.openapi.parser.entity.Entity
 import de.lancom.openapi.parser.field.Field
 

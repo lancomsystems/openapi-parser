@@ -8,7 +8,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(21)
 }
 
 val wrapper by tasks.creating
