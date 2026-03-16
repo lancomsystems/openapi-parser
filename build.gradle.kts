@@ -45,21 +45,24 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-val mavenUsername = System.getenv("MAVEN_USERNAME")
-val mavenPassword = System.getenv("MAVEN_PASSWORD")
-if (mavenUsername != null && mavenPassword != null) {
+val sonatypeUsername = System.getenv("SONATYPE_USERNAME") ?: System.getenv("MAVEN_USERNAME")
+val sonatypePassword = System.getenv("SONATYPE_PASSWORD") ?: System.getenv("MAVEN_PASSWORD")
+if (sonatypeUsername != null && sonatypePassword != null) {
     nexusPublishing {
         repositories {
             sonatype {
-                nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
-                snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                username = mavenUsername
-                password = mavenPassword
+                // Route through Central Portal's OSSRH Staging API compatibility service.
+                nexusUrl = uri("https://ossrh-staging-api.central.sonatype.com/service/local/")
+                snapshotRepositoryUrl = uri("https://central.sonatype.com/repository/maven-snapshots/")
+                username = sonatypeUsername
+                password = sonatypePassword
             }
         }
     }
-} else if (mavenUsername != null || mavenPassword != null) {
-    throw GradleException("missing MAVEN_USERNAME or MAVEN_PASSWORD!")
+} else if (sonatypeUsername != null || sonatypePassword != null) {
+    throw GradleException(
+        "missing SONATYPE_USERNAME or SONATYPE_PASSWORD (legacy MAVEN_USERNAME/MAVEN_PASSWORD is still supported)!",
+    )
 }
 
 publishing {
