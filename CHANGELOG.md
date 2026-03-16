@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/lancomsystems/openapi-parser/compare/v3.0.0...v3.0.1) (2026-03-16)
+
+
+### Build System Improvements
+
+* fix the publish step ([1bda2f5](https://github.com/lancomsystems/openapi-parser/commit/1bda2f502ba7171e584a6c9f42acfcb28b079fe9))
+
 ## [3.0.0](https://github.com/lancomsystems/openapi-parser/compare/v2.1.1...v3.0.0) (2026-03-16)
 
 
