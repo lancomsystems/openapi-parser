@@ -24,8 +24,8 @@ dependencies {
     implementation("tools.jackson.core:jackson-databind:3.0.4")
     implementation("tools.jackson.dataformat:jackson-dataformat-yaml:3.0.4")
     implementation("tools.jackson.module:jackson-module-kotlin:3.0.4")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.3")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:6.0.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:6.0.3")
 }
 
 sourceSets {
