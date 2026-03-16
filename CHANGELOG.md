@@ -1,3 +1,18 @@
+## [3.0.0](https://github.com/lancomsystems/openapi-parser/compare/v2.1.1...v3.0.0) (2026-03-16)
+
+
+### Breaking Changes
+
+* use jackson 3 to parse ([8b8ede3](https://github.com/lancomsystems/openapi-parser/commit/8b8ede3402b150d0b23816c6d90f6172c8c8ead9))
+
+
+### Dependency Updates
+
+* Update actions/checkout action to v6 ([56cfe52](https://github.com/lancomsystems/openapi-parser/commit/56cfe520a4012a480478473922423f03b4392519))
+* Update actions/setup-java action to v5 ([af366f4](https://github.com/lancomsystems/openapi-parser/commit/af366f4690e8730843a45570dfd70ff2afe34cd5))
+* Update Gradle to v8.14.4 ([2821165](https://github.com/lancomsystems/openapi-parser/commit/282116536fc3b8b90f8ac87024815c2ae7e61f48))
+* Update gradle/actions action to v5 ([842197c](https://github.com/lancomsystems/openapi-parser/commit/842197c1eda59305d2c6b9b2d71937f1d9bca482))
+
 ## [2.1.1](https://github.com/lancomsystems/openapi-parser/compare/v2.1.0...v2.1.1) (2024-08-06)
 
 
