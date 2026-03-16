@@ -21,9 +21,9 @@ group = "io.github.lancomsystems.openapi.parser"
 version = libraryVersion
 
 dependencies {
-    implementation("tools.jackson.core:jackson-databind:3.0.4")
-    implementation("tools.jackson.dataformat:jackson-dataformat-yaml:3.0.4")
-    implementation("tools.jackson.module:jackson-module-kotlin:3.0.4")
+    implementation("tools.jackson.core:jackson-databind:3.1.0")
+    implementation("tools.jackson.dataformat:jackson-dataformat-yaml:3.1.0")
+    implementation("tools.jackson.module:jackson-module-kotlin:3.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.3")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.3")
 }
