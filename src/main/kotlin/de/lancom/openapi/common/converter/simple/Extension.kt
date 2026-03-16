@@ -1,9 +1,9 @@
 package de.lancom.openapi.common.converter.simple
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.BooleanNode
-import com.fasterxml.jackson.databind.node.TextNode
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.node.ArrayNode
+import tools.jackson.databind.node.BooleanNode
+import tools.jackson.databind.node.StringNode
 import de.lancom.openapi.parser.entity.RawExtension
 
 fun toSimple(
@@ -23,13 +23,13 @@ fun toSimple(
         is BooleanNode ->
             de.lancom.openapi.simple.types.Extension(jsonNode.booleanValue())
 
-        is TextNode ->
+        is StringNode ->
             de.lancom.openapi.simple.types.Extension(jsonNode.textValue())
 
         is ArrayNode ->
             de.lancom.openapi.simple.types.Extension(
                 jsonNode
-                    .elements()
+                    .values()
                     .asSequence()
                     .map(::toSimple)
                     .map(de.lancom.openapi.simple.types.Extension::value)

@@ -1,9 +1,9 @@
 package de.lancom.openapi.common.converter.simple
 
-import com.fasterxml.jackson.core.TreeNode
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.fasterxml.jackson.module.kotlin.treeToValue
+import tools.jackson.core.TreeNode
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.module.kotlin.readValue
+import tools.jackson.module.kotlin.treeToValue
 import java.io.File
 
 fun ObjectMapper.toSimpleOpenApi(

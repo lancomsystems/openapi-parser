@@ -1,6 +1,6 @@
 package de.lancom.openapi.common.util
 
-import com.fasterxml.jackson.module.kotlin.readValue
+import tools.jackson.module.kotlin.readValue
 import de.lancom.openapi.common.converter.simple.toSimple
 import java.io.File
 

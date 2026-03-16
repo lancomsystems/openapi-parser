@@ -1,6 +1,6 @@
 package de.lancom.openapi.parser.jackson
 
-import com.fasterxml.jackson.databind.node.ObjectNode
+import tools.jackson.databind.node.ObjectNode
 import de.lancom.openapi.parser.entity.Entity
 import de.lancom.openapi.parser.entity.Extension
 import de.lancom.openapi.parser.field.Field
@@ -13,7 +13,7 @@ fun <E : Entity> extensionParser(
     return if (extensions == null) {
         parser(wrapper, Field.unset(), wrapper.fieldOrder)
     } else {
-        val objectNode: ObjectNode = wrapper.jsonNodeField.getOrError().deepCopy()
+        val objectNode: ObjectNode = wrapper.jsonNodeField.getOrError().deepCopy() as ObjectNode
         extensions.keys.forEach { extension ->
             objectNode.remove(extension)
         }

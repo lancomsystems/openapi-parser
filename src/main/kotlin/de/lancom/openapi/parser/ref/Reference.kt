@@ -1,14 +1,14 @@
 package de.lancom.openapi.parser.ref
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer
-import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import tools.jackson.core.JsonGenerator
+import tools.jackson.core.JsonParser
+import tools.jackson.databind.DeserializationContext
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.annotation.JsonDeserialize
+import tools.jackson.databind.annotation.JsonSerialize
+import tools.jackson.databind.deser.std.StdDeserializer
+import tools.jackson.databind.ser.std.StdSerializer
 import de.lancom.openapi.common.util.ParsedReference
 import de.lancom.openapi.parser.field.Field
 import de.lancom.openapi.parser.jackson.Wrapper
@@ -25,18 +25,18 @@ data class Reference<R : Referenceable>(
 
     companion object {
         class Serializer : StdSerializer<Reference<*>>(Reference::class.java) {
-            override fun serialize(value: Reference<*>?, gen: JsonGenerator?, provider: SerializerProvider?) {
-                gen!!.writeObject(
+            override fun serialize(value: Reference<*>, gen: JsonGenerator, provider: SerializationContext) {
+                gen.writePOJO(
                     mapOf(
-                        "\$ref" to value!!.ref
-                    )
+                        "\$ref" to value.ref,
+                    ),
                 )
             }
         }
 
         class Deserializer : StdDeserializer<Reference<*>>(Reference::class.java) {
-            override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): Reference<*> {
-                val node: JsonNode = p!!.codec!!.readTree(p)!!
+            override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Reference<*> {
+                val node: JsonNode = p.readValueAsTree()
                 val wrapper = Wrapper(node)
                 val ref = wrapper["\$ref"].getString().getOrError()
                 return Reference<Referenceable>(ref)

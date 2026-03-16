@@ -1,7 +1,7 @@
 package de.lancom.openapi.parser.jackson
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ObjectNode
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.node.ObjectNode
 import de.lancom.openapi.common.util.*
 import de.lancom.openapi.parser.entity.Entity
 import de.lancom.openapi.parser.entity.Extension
@@ -18,9 +18,12 @@ data class Wrapper(
     val jsonNodeField: Field<JsonNode>,
 ) {
     val fieldOrder: Set<String> by lazy {
-        jsonNodeField.orNull?.fields()?.iterator()?.asSequence()?.toList()?.map { (key, _) ->
-            key
-        }?.toSet() ?: emptySet()
+        jsonNodeField.orNull
+            ?.properties()
+            ?.asSequence()
+            ?.map { (key, _) -> key }
+            ?.toSet()
+            ?: emptySet()
     }
     val field: Field<Wrapper> by lazy {
         jsonNodeField.mapField(::Wrapper)
@@ -28,7 +31,7 @@ data class Wrapper(
 
     val mapField: Field<Map<String, Wrapper>> by lazy {
         jsonNodeField.map { jsonNode ->
-            jsonNode.fields().iterator().asSequence().toList().associate { (k, v) ->
+            jsonNode.properties().asSequence().associate { (k, v) ->
                 k to Wrapper(v)
             }
         }
@@ -36,7 +39,7 @@ data class Wrapper(
 
     val listField: Field<List<Wrapper>> by lazy {
         jsonNodeField.map { jsonNode ->
-            jsonNode.elements().iterator().asSequence().toList().map(Field.Companion::invoke).map(::Wrapper)
+            jsonNode.values().asSequence().toList().map(Field.Companion::invoke).map(::Wrapper)
         }
     }
 

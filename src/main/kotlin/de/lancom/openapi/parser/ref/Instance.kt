@@ -1,9 +1,9 @@
 package de.lancom.openapi.parser.ref
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import tools.jackson.core.JsonGenerator
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.annotation.JsonSerialize
+import tools.jackson.databind.ser.std.StdSerializer
 
 @JsonSerialize(using = Instance.Companion.Serializer::class)
 data class Instance<R : Referenceable>(
@@ -11,8 +11,8 @@ data class Instance<R : Referenceable>(
 ) : ReferenceOrInstance<R> {
     companion object {
         class Serializer : StdSerializer<Instance<*>>(Instance::class.java) {
-            override fun serialize(value: Instance<*>?, gen: JsonGenerator?, provider: SerializerProvider?) {
-                gen!!.writeObject(value!!.referenced)
+            override fun serialize(value: Instance<*>, gen: JsonGenerator, provider: SerializationContext) {
+                gen.writePOJO(value.referenced)
             }
         }
     }
