@@ -1,0 +1,6 @@
+creation_rules:
+  - path_regex: secrets\.sops\.yaml$
+    age: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKmc5clKSeLOoQckDfnH4q/OVP+U6bZBWyrDlPdEjlXx,
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjmrzWsxZflN+PZd0TiWpaFn6evnf/0yEihfUMLGGWQ,
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvrL1CJG09aLg6F4A2+TXINIKZRVHr8KUVoHDy0FWXB

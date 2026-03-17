@@ -28,6 +28,35 @@ This project is licensed under the Apache License 2.0. See the [License file](LI
 
 Feel free to contribute and extend the project, merge requests are very welcome!
 
+## Publishing to Maven Central
+
+Secrets (Sonatype credentials, GPG signing key) are stored encrypted in `secrets.sops.yaml` using [SOPS](https://github.com/getsops/sops) with [age](https://github.com/FiloSottile/age) (SSH ed25519 key).
+
+### Prerequisites
+
+- [sops](https://github.com/getsops/sops) installed
+- SSH ed25519 key at `~/.ssh/id_ed25519` (or set `SOPS_AGE_KEY_FILE`)
+
+### Load secrets and publish
+
+```bash
+source ./load-secrets.sh
+./gradlew publishToSonatype
+```
+
+To publish and release in one step:
+
+```bash
+source ./load-secrets.sh
+./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+```
+
+### Edit secrets
+
+```bash
+SOPS_AGE_KEY_FILE=~/.ssh/id_ed25519 sops secrets.sops.yaml
+```
+
 ## Code Generation
 The majority of the code is automatically generated, and you can update the generated code using the command `./gradlew codegen:run`.
 You can find the Code Generation in Folder `codegen/`, the generated classes can be found in `src/generated/kotlin` and the generated unit tests in `src/generatedtest/kotlin`.
