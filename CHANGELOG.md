@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/lancomsystems/openapi-parser/compare/v3.0.1...v3.0.2) (2026-03-17)
+
+
+### Build System Improvements
+
+* added encrypted secrets ([194b74d](https://github.com/lancomsystems/openapi-parser/commit/194b74de70a11336674d4b2f08a0f22a02efc10c))
+
 ## [3.0.1](https://github.com/lancomsystems/openapi-parser/compare/v3.0.0...v3.0.1) (2026-03-16)
 
 
